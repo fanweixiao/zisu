@@ -23,4 +23,4 @@ php -S 0.0.0.0:80
 - 每一个完整的模块包含着 ``setings.php`` ``create.php`` ``delete.php`` ``start.php`` ``stop.php`` 五个文件。分别对应五个不同的操作。
 - 模块制作规范请正在制作中，具体可以参照现有的 ep1 (与EasyPanel对接) 示例
 ##说明
--二开RyShop
+- 二开RyShop

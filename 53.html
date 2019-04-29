@@ -1,0 +1,124 @@
+<!DOCTYPE html> <html lang="zh-CN"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="renderer" content="webkit"> <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> <meta name="author" content="mengkun"> <meta http-equiv="Cache-Control" content="no-transform"> <meta http-equiv="Cache-Control" content="no-siteapp"> <title>使用Firefox Send搭建一个临时文件分享系统 | 紫苏博客</title> <meta property="article:published_time" content="2019-03-25T09:16:20+08:00"/> <meta property="article:author" content="紫苏博客" /> <meta property="article:published_first" content="紫苏博客,https://www.zsblog.cn/53.html" /> <meta property="og:type" content="article"/> <meta property="og:image" content="https://www.zsblog.cn/wp-content/themes/mkBlog/inc/timthumb.php?src=https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1.png&w=270&h=180&zc=1" /> <meta property="og:release_date" content="2019-03-25T09:16:20+08:00"/> <meta property="og:title" content="使用Firefox Send搭建一个临时文件分享系统 | 紫苏博客" /> <meta property="og:description" content="说明：Firefox Send好像一两年前博主就分享过，是Firefox推出的一個全新的临时文件分享系统，具体查看→传送门，不过貌似代码开源了，也有几个小伙伴搭建的时候遇到了点问题，要博主发个教程，这里就水一下手动搭建和Docker搭建。 截图 手动安装 ..." /> <meta name="description" content="说明：Firefox Send好像一两年前博主就分享过，是Firefox推出的一個全新的临时文件分享系统，具体查看→传送门，不过貌似代码开源了，也有几个小伙伴搭建的时候遇到了点问题，要博主发个教程，这里就水一下手动搭建和Docker搭建。 截图 手动安装 ..." /> <meta name="keywords" content="Linux" /> <link rel="profile" href="http://gmpg.org/xfn/11"> <!-- RSS --> <link rel="alternate" type="application/rss+xml" title="紫苏博客 RSS Feed" href="/feed/" /> <link rel="alternate" type="application/atom+xml" title="紫苏博客 Atom Feed" href="/feed/atom/" /> <!--[if lt IE 9]> <script src="https://www.zsblog.cn/wp-content/themes/mkBlog/js/html5-css3.js"></script> <![endif]--> <link rel='stylesheet' id='font-awesome-css' href='/wp-content/themes/mkBlog/fonts/font-awesome.min.css?ver=1.93' type='text/css' media='all' /> <link rel='stylesheet' id='fancybox-css' href='/wp-content/themes/mkBlog/css/jquery.fancybox.min.css?ver=1.93' type='text/css' media='all' /> <link rel='stylesheet' id='main-style-css' href='/wp-content/themes/mkBlog/style.css?ver=1.93' type='text/css' media='all' /> <script type='text/javascript' src='/wp-content/themes/mkBlog/js/jquery.min.js?ver=1.93'></script> <script type='text/javascript' src='/wp-content/themes/mkBlog/js/jquery.fancybox.min.js?ver=1.93'></script> <script type='text/javascript' src='/wp-content/themes/mkBlog/js/prettify.js?ver=1.93'></script> <script type='text/javascript'> /* <![CDATA[ */ var mk_theme_api = {"ajax_url":"https:\/\/www.zsblog.cn\/wp-admin\/admin-ajax.php","home_url":"https:\/\/www.zsblog.cn","theme_url":"https:\/\/www.zsblog.cn\/wp-content\/themes\/mkBlog","qrcode_api":"https:\/\/www.kuaizhan.com\/common\/encode-png?large=true&data="}; /* ]]> */ </script> <script type='text/javascript' src='/wp-content/themes/mkBlog/js/script.min.js?ver=1.93'></script> <link rel="canonical" href="/53.html" /> <link rel="icon" href="/wp-content/uploads/2019/03/cropped-20190325_010521_43-1-32x32.png" sizes="32x32" /> <link rel="icon" href="/wp-content/uploads/2019/03/cropped-20190325_010521_43-1-192x192.png" sizes="192x192" /> <link rel="apple-touch-icon-precomposed" href="/wp-content/uploads/2019/03/cropped-20190325_010521_43-1-180x180.png" /> <meta name="msapplication-TileImage" content="https://www.zsblog.cn/wp-content/uploads/2019/03/cropped-20190325_010521_43-1-270x270.png" /> <meta name="baidu-site-verification" content="oPesQ3YHaF" /> <!-- 强制https --> <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> <!-- Global site tag (gtag.js) - Google Analytics --> <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137734612-1"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-137734612-1'); </script></head> <body class="post-template-default single single-post postid-53 single-format-standard"> <!-- 顶部导航栏 --> <nav id="top-navi"> <div id="menu-btn"> <div class="menu-btn-bar"></div> <div class="menu-btn-bar"></div> <div class="menu-btn-bar"></div> </div> <div class="top-navi-content"> <a class="top-navi-logo" href="/"> <img src="https://zsblog.cn/wp-content/uploads/2019/03/20190325_010514_10.png" alt="紫苏博客"> </a> <a class="top-navi-search-btn" href="/search/" title="搜索博客内容"> <i class="fa fa-search" aria-hidden="true"></i> </a> <div class="main-menu"> <ul id="menu-menu" class="menu"><li id="menu-item-8" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-8"><a href="https://zsblog.cn/">首页</a></li> <li id="menu-item-12" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-12"><a href="/mood/">吐槽</a></li> <li id="menu-item-15" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-15"><a href="/archives/">归档</a> <ul class="sub-menu"> <li id="menu-item-31" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-31"><a href="/wordpress/">Wordpress</a></li> <li id="menu-item-33" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33"><a href="/php/">PHP</a></li> <li id="menu-item-32" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-32"><a href="/linux/">Linux</a></li> <li id="menu-item-34" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-34"><a href="/uncategorized/">随笔</a></li> </ul> </li> <li id="menu-item-18" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="/links/">友链</a></li> <li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-30"><a href="/about/">关于</a> <ul class="sub-menu"> <li id="menu-item-157" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-157"><a href="/album/">相册长廊</a></li> <li id="menu-item-380" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-380"><a href="/copyright-html/">免责声明</a></li> <li id="menu-item-198" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-198"><a href="/tags/">标签大全</a></li> </ul> </li> </ul> </div> </div> </nav><!-- #top-header --> <article id="post-53" class="post-53 post type-post status-publish format-standard hentry category-linux" itemscope itemtype="http://schema.org/Article"> <header class="entry-header"> <h1 class="entry-title">使用Firefox Send搭建一个临时文件分享系统</h1> <div class="header-info"> <span class="article-auth"> <!-- 文章类型 --> <span class="article-report" title="转载文章">转</span> <!-- 文章作者 --> <a href="/53.html" rel="nofollow" target="_blank"> <i class="fa fa-user" aria-hidden="true"></i> zisu </a> </span> <!-- 日期、阅读量、评论、编辑 --> <span class="article-date"> <i class="fa fa-clock-o" aria-hidden="true"></i> <time datetime="2019-03-25 09:03:20" itemprop="datePublished">2019-03-25</time> </span> <span class="article-views"> <i class="fa fa-eye" aria-hidden="true"></i> 31 </span> <span class="article-edit" data-no-instant></span> </div> </header><!-- .entry-header --> <!-- 文章摘要 --> <!-- 正文 --> <div class="entry-content" itemprop="articleBody"> <div class="single-content"> <!-- 文章内容 --> <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <!-- 文章页head --> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448507556906408" data-ad-slot="3661276472" data-ad-format="auto" data-full-width-responsive="true"></ins> <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script><p><strong>说明：</strong><code>Firefox Send</code>好像一两年前博主就分享过，是<code>Firefox</code>推出的一個全新的临时文件分享系统，具体查看→<a href="/go/?url=https://www.moerats.com/archives/356/" rel="nofollow" data-no-instant target="_blank">传送门</a>，不过貌似代码开源了，也有几个小伙伴搭建的时候遇到了点问题，要博主发个教程，这里就水一下手动搭建和<code>Docker</code>搭建。</p> <div data-unique="截图"></div> <h2>截图</h2> <p><a href="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1.png"><img class="attachment-full size-full" src="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1.png" alt="使用Firefox Send搭建一个临时文件分享系统" sizes="(max-width: 1349px) 100vw, 1349px" srcset="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1.png 1349w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1-300x145.png 300w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1-768x372.png 768w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-4707-DJFirefoxSend1-1024x496.png 1024w"></a><br /> <a href="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2.png"><img class="attachment-full size-full" src="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2.png" alt="使用Firefox Send搭建一个临时文件分享系统" sizes="(max-width: 1348px) 100vw, 1348px" srcset="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2.png 1348w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2-300x146.png 300w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2-768x373.png 768w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-7292-DJFirefoxSend2-1024x497.png 1024w"></a><br /> <a href="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3.png"><img class="attachment-full size-full" src="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3.png" alt="使用Firefox Send搭建一个临时文件分享系统" sizes="(max-width: 1347px) 100vw, 1347px" srcset="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3.png 1347w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3-300x146.png 300w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3-768x373.png 768w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-1169-DJFirefoxSend3-1024x497.png 1024w"></a><br /> <a href="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4.png"><img class="attachment-full size-full" src="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4.png" alt="使用Firefox Send搭建一个临时文件分享系统" sizes="(max-width: 1349px) 100vw, 1349px" srcset="https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4.png 1349w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4-300x145.png 300w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4-768x372.png 768w, https://zsblog.cn/wp-content/uploads/2019/03/1553476590-3122-DJFirefoxSend4-1024x496.png 1024w"></a></p> <div data-unique="手动安装"></div> <h2>手动安装</h2> <p><strong>Github地址：</strong><a href="/go/?url=https://github.com/mozilla/send" rel="nofollow" data-no-instant target="_blank">https://github.com/mozilla/send</a></p> <p><strong>所需环境：</strong><code>Node.<a href="https://www.zsblog.cn/tag/js/" title="js">js</a> 10+</code>、<code>Redis</code>，如果你服务器，特别是<code>CentOS</code>，内存<code>512M</code>或以下的话，建议加点虚拟内存，不然后面可能会安装失败，也可以用下<code>Swap</code>一键脚本→<a href="/go/?url=https://www.moerats.com/archives/722/" rel="nofollow" data-no-instant target="_blank">传送门</a>。</p> <p><strong>1、安装Node<a href="/tag/js/" title="js">js</a></strong></p> <pre class="prettyprint lang-html linenums:1">#Debian/Ubuntu系统
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
+apt install -y nodejs git
+
+#CentOS系统
+curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+yum install nodejs -y
+yum -y groupinstall "Development Tools"
+<strong>2、安装Redis</strong>
+<code>CenOS 6</code>系统：</pre> <pre class="prettyprint lang-html linenums:1">#安装EPEL
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+#安装Redis
+yum install redis git -y
+#启动Redis
+service redis start
+#设置开机自启
+chkconfig redis on
+<code>CenOS 7</code>系统：</pre> <pre class="prettyprint lang-html linenums:1">#安装EPEL
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+#安装Redis
+yum install redis -y
+#启动Redis
+systemctl start redis
+#设置开机自启
+systemctl enable redis
+<code>Debian</code>/<code>Ubuntu</code>系统：</pre> <pre class="prettyprint lang-html linenums:1">apt install redis-server -y
+<strong>3、安装Firefox Send</strong></pre> <pre class="prettyprint lang-html linenums:1">git clone https://github.com/mozilla/send.git
+cd send
+#安装依赖
+npm install
+#构建生产环境
+npm run build
+#运行
+npm run prod</pre> <p>基本上官方安装方法是这样，不过貌似使用<code>root</code>用户构建生产环境的时候会有点小问题，普通用户倒是没问题的。</p> <p>一般我们玩的服务器都是直接给的<code>root</code>用户，所以这里就需要新建一个普通用户进行构建操作。</p> <p>先使用<code>root</code>登录<code>SSH</code>客户端，使用命令：</p> <pre class="prettyprint lang-html linenums:1">#新建一个moerats用户，指定该用户的主目录为/home/moerats
+
+#Debian/Ubuntu系统
+useradd -d /home/moerats -m moerats
+
+#CentOS系统，以下命令会自动给你创建一个/home/moerats主目录
+useradd moerats
+
+然后继续使用命令：</pre> <pre class="prettyprint lang-html linenums:1">#进入到/home/moerats目录下载send项目
+cd /home/moerats
+git clone https://github.com/mozilla/send.git
+#将send目录用户权限改为新建用户moerats
+chown -R moerats:moerats send
+#切换moerats用户
+su - moerats
+#进入项目文件夹
+cd send
+#安装依赖
+npm install
+#构建生产环境
+npm run build
+#运行
+npm run prod
+</pre> <p>不出意外的话，构建和运行都没问题，不过运行的话<code>root</code>用户和新建的<code>moerats</code>用户都是可以运行的。</p> <p>访问地址为<code>ip:1443</code>，然后一般情况下<code>CentOS</code>还需要开启防火墙<code>1443</code>端口，使用命令：</p> <pre class="prettyprint lang-html linenums:1">#CentOS 6
+iptables -I INPUT -p tcp --dport 1443 -j ACCEPT
+service iptables save
+service iptables restart
+
+#CentOS 7
+firewall-cmd --zone=public --add-port=1443/tcp --permanent
+firewall-cmd --reload</pre> <p>想要访问就需要使用域名反代，方法看后面。</p> <div data-unique="Docker安装"></div> <h2>Docker安装</h2> <p><strong>1、安装Docker</strong></p> <pre class="prettyprint lang-html linenums:1">#CentOS 6
+rpm -iUvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+yum update -y
+yum -y install docker-io
+service docker start
+chkconfig docker on
+
+#CentOS 7、Debian、Ubuntu
+curl -sSL https://get.docker.com/ | sh
+systemctl start docker
+systemctl enable docker
+<strong>2、拉取镜像</strong>
+首先了解下<code>Firefox Send</code>一些变量→<a href="/go/?url=https://github.com/mozilla/send/blob/master/server/config.js" rel="nofollow" data-no-instant target="_blank">传送门</a>，再使用命令启动镜像：</pre> <pre class="prettyprint lang-html linenums:1">#将容器内部运行环境设置为生产，外部映射端口1443
+docker run --name send -d \
+  -p 1443:1443 \
+  -e NODE_ENV=production \
+  mozilla/send:latest</pre> <p>然后使用<code>ip:1443</code>访问即可，如果你想设置变量值，比如<code>S3</code>，直接使用<code>-e</code>参数即可，参考<code>NODE_ENV</code>用法。</p> <div data-unique="域名反代"></div> <h2>域名反代</h2> <p>安装<code>Caddy</code>：</p> <pre class="prettyprint lang-html linenums:1">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/caddy_install.sh &amp;&amp; chmod +x caddy_install.sh &amp;&amp; bash caddy_install.sh
+#备用地址
+wget -N --no-check-certificate https://www.moerats.com/usr/shell/Caddy/caddy_install.sh &amp;&amp; chmod +x caddy_install.sh &amp;&amp; bash caddy_install.sh
+
+配置<code>Caddy</code>：</pre> <pre class="prettyprint lang-html linenums:1">#以下全部内容是一个整体，请修改域名后一起复制到SSH运行！
+
+#http访问，该配置不会自动签发SSL
+echo "www.moerats.com {
+ gzip
+ proxy / 127.0.0.1:1443 {
+    header_upstream Host {host}
+    header_upstream X-Real-IP {remote}
+    header_upstream X-Forwarded-For {remote}
+    header_upstream X-Forwarded-Proto {scheme}
+  }
+}" &gt; /usr/local/caddy/Caddyfile
+
+#https访问，该配置会自动签发SSL，请提前解析域名到VPS服务器
+echo "www.moerats.com {
+ gzip
+ tls <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2746434a4e49674a4842554653540944484a">[email&#160;protected]</a>
+ proxy / 127.0.0.1:1443 {
+    header_upstream Host {host}
+    header_upstream X-Real-IP {remote}
+    header_upstream X-Forwarded-For {remote}
+    header_upstream X-Forwarded-Proto {scheme}
+  }
+}" &gt; /usr/local/caddy/Caddyfile
+
+<code>tls</code>参数会自动帮你签发<code>ssl</code>证书，如果你要使用自己的<code>ssl</code>，改为<code>tls /root/xx.crt /root/xx.key</code>即可。后面为<code>ssl</code>证书路径。 启动<code>Caddy</code>：</pre> <pre class="prettyprint lang-html linenums:1">/etc/init.d/caddy start</pre> <p>就可以打开域名进行访问了。</p> <p>如果你使用其它的，比如<code><a href="https://www.zsblog.cn/tag/nginx/" title="Nginx">Nginx</a></code>，这里就大概发个反代配置，直接添加到配置文件即可。</p> <pre class="prettyprint lang-html linenums:1">#在配置文件里添加
+location / {
+     proxy_pass http://127.0.0.1:1443;
+     proxy_redirect off;
+     proxy_set_header X-Real-IP $remote_addr;
+     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }</pre> <pre class="prettyprint lang-html linenums:1"></pre> <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> <!-- 文章页下方 --> <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-5448507556906408" data-ad-slot="9680245136" data-ad-format="auto" data-full-width-responsive="true"></ins> <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script> </div> <div class="content-extras clear-fix"> <!-- 版权信息 --> <p class="single-copyright"> 本文作者为<a href="/53.html" rel="nofollow" target="_blank">zisu</a>，转载请注明。 </p> <!-- 文章标签 --> <p class="single-tags"> </p> </div> <!-- content-extras --> </div><!-- .entry-content --> <!-- 点赞、分享、打赏组件 --> <div class="social-main"> <div class="like favorite" data-action="ding" data-id="53"> <span class="likeHeart" rel="like"></span> <span class="count">0</span>人点赞 </div> </div> </article><!-- #post --> <div id="article-share"> 分享 <div class="share-item" data-site="weixin" title="分享到微信"> <i class="fa fa-weixin"></i> 微信 </div> <div class="share-item" data-site="weibo" title="分享到新浪微博"> <i class="fa fa-weibo"></i> 微博 </div> <div class="share-item" data-site="qq" title="分享给QQ好友"> <i class="fa fa-qq"></i> QQ </div> </div> <div id="article-menu" data-automenu></div> <footer id="site-footer"> Copyright © zisu & <a href="/" >紫苏博客</a> All Rights Rsesrved. <span>苏ICP备15050462号-1 </span> </footer> <!--[if IE]> <div class="no-ie"> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 本博客已不支持 IE <a href="http://lab.mkblog.cn/music/plugns/killie/" target="_blank">点击升级浏览器</a> </div> <![endif]--> <!-- 返回顶部按钮 --> <div id="scroll-to-top" title="返回顶部" class="headroom"> <i class="fa fa-chevron-up" aria-hidden="true"></i> </div> <!-- 初始化小表情、灯箱、代码高亮 --> <script>initTheme();</script> <script data-no-instant> InstantClick.on('change', function(isInitialLoad) { if(isInitialLoad === false) { if(typeof ga!=='undefined') ga('send', 'pageview', location.pathname + location.search); if(typeof MathJax!=='undefined') { MathJax.Hub.Queue(["Typeset",MathJax.Hub]) } if (typeof _hmt !== 'undefined'){ _hmt.push(['_trackPageview', location.pathname + location.search]); } console.log('InitialLoad'); } else { console.log('Normal'); } }); InstantClick.init('mousedown'); </script> </body> </html>
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+Object Caching 55/78 objects using memcached
+Page Caching using memcached 
+Database Caching using memcached
+
+Served from: zsblog.cn @ 2019-04-29 21:37:43 by W3 Total Cache
+-->

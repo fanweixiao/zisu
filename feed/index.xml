@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>紫苏博客</title>
+	<atom:link href="/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>愿每个善良的人被世界温柔以待</description>
+	<lastBuildDate>
+	Sun, 28 Apr 2019 12:01:00 +0000	</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	
+<image>
+	<url>/wp-content/uploads/2019/03/cropped-20190325_010521_43-1-32x32.png</url>
+	<title>紫苏博客</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>如何创建自定义WordPress 404错误页面</title>
+		<link>/933.html</link>
+				<pubDate>Sun, 28 Apr 2019 11:45:11 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Wordpress]]></category>
+		<category><![CDATA[404错误页面]]></category>
+
+		<guid isPermaLink="false">/?p=933</guid>
+				<description><![CDATA[错误404是访问者尝试访问不存在的页面时。有时人们倾向于忽略这个功能，而从不考虑为它设计。花时间制作一个用户友好的404页面可能意味着用户留在您的网站或离开的差异。]]></description>
+								<content:encoded><![CDATA[<p><span>错误404是访问者尝试访问不存在的页面时。有时人们倾向于忽略这个功能，而从不考虑为它设计。花时间制作一个用户友好的404页面可能意味着用户留在您的网站或离开的差异。</span></p>
+<p><span>您有可能创建了自己的网站并多次检查以确保每个链接都指向某个地方。最终，随着时间的推移，您可能会忘记导致您删除的帖子或可能更改名称的链接。即使访问者直接搜索页面并且他们没有正确搜索，他们也会被带到错误404页面。</span></p>
+<p><span>利用WordPress模板标签和一些技术诀窍，可以使用户非常友好。</span></p>
+<h2><span>了解错误404</span></h2>
+<p><span>错误404是访问者在找不到页面或帖子时将收到的消息。这默认包含在WordPress中，但不包含所有主题。如果您已经创建了自定义主题，那么即使他们没有通过正确设计的404页面找到他们想要的内容，您也可以增加用户坚持使用的机会。</span></p>
+<h2><span>基本错误404模板</span></h2>
+<p><span>一些WordPress主题包含基本错误404模板，但不是全部。WordPress设置为在</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>达到错误404时自动查找文件。如果此文件不存在，那么它将给出一个用户不友好的基本错误消息。</span></p>
+<p><span>如果您还没有此文件，则可以创建它。创建一个新的空白文件并命名</span><code>404.<a href="/tag/php/" title="php">php</a></code></p>
+<p><span>以下是我们将开始的基本代码：</span></p>
+<h2><span>404.<a href="/tag/php/" title="php">php</a>文件</span></h2>
+<pre class="prettyprint lang-php linenums:1">&lt;?php get_header(); ?&gt;
+&lt;h2&gt;Error 404 - Page Not Found.&lt;/h2&gt;
+&lt;?php get_sidebar(); ?&gt;
+&lt;?php get_footer(); ?&gt;</pre>
+<p><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件中的上述代码将给出一个包含在H2标签中的简单输出，该标签将显示为“错误404 - 未找到页面”。 - 它还将获得WordPress标题，补充工具栏和页脚。这些都是可选的，应该修改以适合您的WordPress主题。</span></p>
+<p><span>我们希望进一步实现这一目标。请注意我使用get_header（）以及get_sidebar和footer来调用我们的主题模板文件。您的可能会略有不同，您必须相应地调整您的</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件。</span></p>
+<h2><span>开始研究它</span></h2>
+<p><span>首先，我们将搜索表单添加到我们的基本404页面，以使其更有帮助。这样，即使访问者登陆您的404，他们也可以选择搜索您的网站。这是第一种帮助用户坚持而不是离开的方法。</span></p>
+<h2><span>404.<a href="/tag/php/" title="php">php</a>文件 - 添加了搜索表单</span></h2>
+<pre class="prettyprint lang-html linenums:1">&lt;?php get_header(); ?&gt;php get_header(); ?&gt;
+&lt;h2&gt;Error 404 - Page Not Found.&lt;/h2&gt;
+&lt;h2&gt;Error 404 - Page Not Found.&lt;/h2&gt;
+Search:
+&lt;?php include(TEMPLATEPATH . "/searchform.php"); ?&gt;
+&lt;?php include(TEMPLATEPATH . "/searchform.php"); ?&gt;
+&lt;?php get_sidebar(); ?&gt;&lt;?php get_sidebar(); ?&gt;
+&lt;?php get_footer(); ?&gt;&lt;?php get_footer(); ?&gt;</pre>
+<h2><span>让它更具活力</span></h2>
+<p><span>要创建更加动态的错误404页面，您可以使用重定向，以便用户只能短暂地看到错误，然后重定向到您的主页。这个页面也可以有点SEO友好。</span></p>
+<p><span>对于下一个示例，我们可以从编辑</span><code>header.<a href="/tag/php/" title="php">php</a></code><span>模板的文件开始。在</span><code>header.<a href="/tag/php/" title="php">php</a></code><span>文件顶部的元标记内，您可以添加以下内容：</span></p>
+<h2><span>header.<a href="/tag/php/" title="php">php</a>文件</span></h2>
+<pre class="prettyprint lang-php linenums:1">&lt;?php if (is_404()) { $redirectHome = get_option('home'); ?&gt;php if (is_404()) { $redirectHome = get_option('home'); ?&gt;
+&lt;?php echo $redirectHome; ?&gt;&lt;?php echo $redirectHome; ?&gt;</pre>
+<p><span>添加完成后，我们将编辑我们的</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件，如下所示：</span></p>
+<h2><span>404.<a href="/tag/php/" title="php">php</a>文件</span></h2>
+<pre class="prettyprint lang-html linenums:1">&lt;?php get_header(); ?&gt;
+&lt;h1&gt;Error 404 - File Not Found.&lt;/h1&gt;
+&lt;h3&gt;Please &lt;a href="&lt;?php bloginfo('home'); ?&gt;" Click here&lt;/a&gt; to return to our home page, or you can wait to be redirected in 15 seconds.&lt;/h3&gt;
+&lt;?php get_footer(); ?&gt;</pre>
+<p><span>上面的示例将允许用户登陆404错误页面，但随后自动将它们带回主页。这也可以帮助用户留下来，而不是让他们感到困惑，离开你的网站。</span></p>
+<p><span>此示例可能并不总是适合所有人的最佳解决方案，但对于在您的网站上寻找特定内容的人可能会有所帮助。</span></p>
+<h2><span>确保它有效</span></h2>
+<p><span>您可以通过键入URL并使用您知道不存在的页面跟随它来测试404错误页面。</span></p>
+<p><span>例： </span><code>http://www.yourwebsitedomain.com/test404p<a href="/tag/age/" title="age">age</a>.<a href="/tag/php/" title="php">php</a></code></p>
+<p><span>这应该会带您到404页面进行查看和测试。</span></p>
+<h2><span>如果它不起作用</span></h2>
+<p><span>如果您的服务器没有自动将您带到您的</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件，我们可以修改.htaccess文件以使其正常工作。在WordPress安装中找到.htaccess文件并向其添加以下行：</span></p>
+<pre class="prettyprint lang-php linenums:1">ErrorDocument 404 /index.php?error=404</pre>
+<p><span>如果你的WordPress安装不在根目录中，你需要确保上面的代码反映了这一点。</span><span>如果您已将WordPress安装到子文件夹中，请修改.htaccess，如下所示：</span></p>
+<pre class="prettyprint lang-php linenums:1">ErrorDocument 404 /YOURSUBFOLDERNAME/index.php?error=404</pre>
+<p><span>这将强制使用您的</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件。</span></p>
+<h2><span>一个完整的例子</span></h2>
+<p><span>下面的代码是一个完整的演示，它将向您展示一些可以使用该</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件来帮助找到不存在的用户的方法。看看它，注意我们给他们留下的选项，并帮助他们找到内容。</span></p>
+<pre class="prettyprint lang-php linenums:1">&lt;?php get_header(); ?&gt;
+&lt;h1&gt;404 Error&lt;/h1&gt;
+We cannot seem to find what you were looking for.
+Maybe we can still help you.
+&lt;ul&gt;
+&lt;li&gt;You can search our site using the form provided below.&lt;/li&gt;
+&lt;li&gt;You can visit &lt;a href="&lt;?php bloginfo?&gt;"&lt;/a&gt;&lt;/li&gt;
+&lt;a href="&lt;?php ('url'); ?&gt;" the homepage.&lt;/a&gt;
+&lt;li&gt;Or you can view some of our recent posts.&lt;/li&gt;
+&lt;/ul&gt;
+Search:
+TEMPLATEPATH . "/searchform.php"); ?&gt;
+&lt;h3&gt;Recent Posts&lt;/h3&gt;
+&lt;ul&gt;
+&lt;?php query_posts('posts_per_page=5'); if (have_posts()) : while (have_posts()) : the_post(); ?&gt;
+&lt;li&gt;&lt;a href="&lt;?php the_permalink() ?&gt;" title="Permalink for : &lt;?php the_title(); ?&gt;"&gt;&lt;?php the_title(); ?&gt;&lt;/a&gt;
+endwhile; endif; ?&gt;
+&lt;/ul&gt;
+&lt;?php get_footer(); ?&gt;</pre>
+<p><span>以上任何内容都可以更改和设计，以满足您的需求。在上面的示例中，我们显示存在错误，然后使用用户的选项列表跟随它。我们还在为他们提供搜索我们网站的选项，现在他们已经添加了查看我们最近帖子的功能。</span></p>
+<p><span>所有这些的组合为用户提供了到达页面选项。这些选项可用于确保用户不会立即离开，如果他们没有找到他们想要的确切内容。</span></p>
+<h2><span>让它更友好</span></h2>
+<p><span>为了使其更加用户友好和独特，您可以考虑使用上面的示例和您选择的不同背景图像。您还可以在</span><code>404.<a href="/tag/php/" title="php">php</a></code><span>文件中使用html 为您的错误页面创建一个页面。以下是一些独特错误404页面的灵感示例：</span></p>
+<h3><span>1. Mundofox.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451870-7872-error404-example1.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451870-7872-error404-example1.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 540px) 100vw, 540px" srcset="/wp-content/uploads/2019/04/1556451870-7872-error404-example1.jpg 540w, /wp-content/uploads/2019/04/1556451870-7872-error404-example1-300x267.jpg 300w" alt="" width="540" height="480" /></a></p>
+<h3><span>2. CSSRemix.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451871-5060-error404-example2.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451871-5060-error404-example2.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 540px) 100vw, 540px" srcset="/wp-content/uploads/2019/04/1556451871-5060-error404-example2.jpg 540w, /wp-content/uploads/2019/04/1556451871-5060-error404-example2-300x208.jpg 300w" alt="" width="540" height="375" /></a></p>
+<h3><span>3. CSSRemix.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451871-2204-error404-example3.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451871-2204-error404-example3.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 540px) 100vw, 540px" srcset="/wp-content/uploads/2019/04/1556451871-2204-error404-example3.jpg 540w, /wp-content/uploads/2019/04/1556451871-2204-error404-example3-300x208.jpg 300w" alt="" width="540" height="375" /></a></p>
+<h3><span>4. ChrisJennings.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-5994-error404-example4.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-5994-error404-example4.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 540px) 100vw, 540px" srcset="/wp-content/uploads/2019/04/1556451872-5994-error404-example4.jpg 540w, /wp-content/uploads/2019/04/1556451872-5994-error404-example4-300x208.jpg 300w" alt="" width="540" height="375" /></a></p>
+<h3><span>5. ook.co.uk</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-7839-error404-example5.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-7839-error404-example5.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 570px) 100vw, 570px" srcset="/wp-content/uploads/2019/04/1556451872-7839-error404-example5.jpg 570w, /wp-content/uploads/2019/04/1556451872-7839-error404-example5-300x286.jpg 300w" alt="" width="570" height="544" /></a></p>
+<h3><span>6. Youcastr.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-2553-error404-example6.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-2553-error404-example6.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 570px) 100vw, 570px" srcset="/wp-content/uploads/2019/04/1556451872-2553-error404-example6.jpg 570w, /wp-content/uploads/2019/04/1556451872-2553-error404-example6-300x247.jpg 300w" alt="" width="570" height="469" /></a></p>
+<h3><span>7. Mixx.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-6500-error404-example7.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-6500-error404-example7.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 550px) 100vw, 550px" srcset="/wp-content/uploads/2019/04/1556451872-6500-error404-example7.jpg 550w, /wp-content/uploads/2019/04/1556451872-6500-error404-example7-300x166.jpg 300w" alt="" width="550" height="305" /></a></p>
+<h3><span>8. JustCreativeDesign.com</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-4319-error404-example8.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-4319-error404-example8.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 550px) 100vw, 550px" srcset="/wp-content/uploads/2019/04/1556451872-4319-error404-example8.jpg 550w, /wp-content/uploads/2019/04/1556451872-4319-error404-example8-300x240.jpg 300w" alt="" width="550" height="440" /></a></p>
+<h3><span>9. <a href="/tag/age/" title="age">age</a>ns.no</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451872-9998-error404-example9.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451872-9998-error404-example9.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 550px) 100vw, 550px" srcset="/wp-content/uploads/2019/04/1556451872-9998-error404-example9.jpg 550w, /wp-content/uploads/2019/04/1556451872-9998-error404-example9-150x150.jpg 150w, /wp-content/uploads/2019/04/1556451872-9998-error404-example9-300x300.jpg 300w" alt="" width="550" height="551" /></a></p>
+<h3><span>10. Mushroomdigital.co.uk</span></h3>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556451871-2706-error404-example10.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556451871-2706-error404-example10.jpg" alt="如何创建自定义WordPress 404错误页面" sizes="(max-width: 550px) 100vw, 550px" srcset="/wp-content/uploads/2019/04/1556451871-2706-error404-example10.jpg 550w, /wp-content/uploads/2019/04/1556451871-2706-error404-example10-300x271.jpg 300w" alt="" width="550" height="497" /></a></p>
+<h2><span>明智地使用它</span></h2>
+<p><span>对于WordPress和静态HTML网站来说，使用404页面总是很好的做法。要么使用广告来获利，要么使用它来更好地帮助访问者浏览您的网站。</span></p>
+<p><span>有很多方法可以创建自己的自定义404错误页面，并且有很多方法可以帮助网站访问者。自由使用上面的例子，并试验最适合你的方法。</span></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>如何轻松自定义WordPress登录页面</title>
+		<link>/927.html</link>
+				<pubDate>Sun, 28 Apr 2019 11:29:52 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Wordpress]]></category>
+		<category><![CDATA[wordpress登录页]]></category>
+
+		<guid isPermaLink="false">/?p=927</guid>
+				<description><![CDATA[Ø版本的WordPress的多年发展中，默认的登录屏幕设计没有改变，仍然是简单和干净是在不同屏幕尺寸的作品。但是，在为特定客户（特别是公司）构建网站时，如果您可以更改登录屏幕的颜色方案以及与网站主题相匹配的徽标，那会很好看，对吗？]]></description>
+								<content:encoded><![CDATA[<p><span class="dropcap">Ø</span>版本的WordPress的多年发展中，默认的登录屏幕设计没有改变，仍然是简单和干净是在不同屏幕尺寸的作品。但是，在为特定客户（特别是公司）构建网站时，如果您可以更改登录屏幕的颜色方案以及与网站主题相匹配的徽标，那会很好看，对吗？</p>
+<hr />
+<p>好的，它可以轻松完成。关于WordPress的好处是后端的每个部分都可以通过使用<a title="php" href="/tag/php/">php</a> <i>函数</i>进行自定义。</p>
+<p>在今天的教程中，我将向您展示如何以您希望的方式自定义WordPress登录屏幕。首先，我们将更改徽标，然后更改配色方案和其他一些元素。让我们开始吧。</p>
+<h2>您需要完成本教程的资源</h2>
+<ul>
+<li>WordPress安装具有二十四个默认主题</li>
+<li>时间和耐心</li>
+</ul>
+<h2>默认的WordPress登录屏幕</h2>
+<p><a href="/wp-content/uploads/2019/04/1556450971-9046-default-login.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450971-9046-default-login.png" alt="如何轻松自定义WordPress登录页面" sizes="(max-width: 1346px) 100vw, 1346px" srcset="/wp-content/uploads/2019/04/1556450971-9046-default-login.png 1346w, /wp-content/uploads/2019/04/1556450971-9046-default-login-300x140.png 300w, /wp-content/uploads/2019/04/1556450971-9046-default-login-768x357.png 768w, /wp-content/uploads/2019/04/1556450971-9046-default-login-1024x476.png 1024w" alt="" width="1346" height="626" /></a></p>
+<h2>我们要建立什么</h2>
+<p><a href="/wp-content/uploads/2019/04/1556450971-9338-final-storm.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450971-9338-final-storm.png" alt="如何轻松自定义WordPress登录页面" sizes="(max-width: 1346px) 100vw, 1346px" srcset="/wp-content/uploads/2019/04/1556450971-9338-final-storm.png 1346w, /wp-content/uploads/2019/04/1556450971-9338-final-storm-300x140.png 300w, /wp-content/uploads/2019/04/1556450971-9338-final-storm-768x357.png 768w, /wp-content/uploads/2019/04/1556450971-9338-final-storm-1024x476.png 1024w" alt="" width="1346" height="626" /></a></p>
+<h2>更改徽标</h2>
+<p>WordPress使用CSS来显示背景图像。它通常插在H1和锚标签之间。但是，对于本教程，我们将在二十四个WordPress默认主题中使用<i>functions.<a title="php" href="/tag/php/">php</a></i>文件。</p>
+<p><a href="/wp-content/uploads/2019/04/1556450967-7123-functions.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450967-7123-functions.png" alt="如何轻松自定义WordPress登录页面" sizes="(max-width: 833px) 100vw, 833px" srcset="/wp-content/uploads/2019/04/1556450967-7123-functions.png 833w, /wp-content/uploads/2019/04/1556450967-7123-functions-300x189.png 300w, /wp-content/uploads/2019/04/1556450967-7123-functions-768x484.png 768w" alt="" width="833" height="525" /></a></p>
+<p>首先，将您喜欢的徽标（png文件格式）放在图像文件夹中的二十四个WordPress默认主题目录中（对于本教程，我使用了<i>cus<a title="tom" href="/tag/tom/">tom</a>-login-logo.png</i>徽标）。请注意，徽标的最大尺寸应为80 x 80px; 但是，您也可以更改自定义CSS文件中的维度。</p>
+<p><a href="/wp-content/uploads/2019/04/1556450971-1551-place-images.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450971-1551-place-images.png" alt="如何轻松自定义WordPress登录页面" sizes="(max-width: 796px) 100vw, 796px" srcset="/wp-content/uploads/2019/04/1556450971-1551-place-images.png 796w, /wp-content/uploads/2019/04/1556450971-1551-place-images-300x199.png 300w, /wp-content/uploads/2019/04/1556450971-1551-place-images-768x508.png 768w" alt="" width="796" height="527" /></a></p>
+<p>接下来，打开二十四个WordPress默认主题里面的<i>functions.<a title="php" href="/tag/php/">php</a></i>文件。我们将使用<i>login_enqueue_scripts</i>钩子将CSS插入我们的登录页面的头部以加载我们的首选徽标。在<i>functions.<a title="php" href="/tag/php/">php</a></i>文件的最后一行之后插入以下代码，然后将首选徽标文件名放在目录路径中。</p>
+<pre class="prettyprint lang-php linenums:1">function login_logo() { ?&amp;gt;
+	&amp;lt;style type="text/css"&amp;gt;
+    	body.login div#login h1 a {
+        	background-image: url(&amp;lt;?php echo get_stylesheet_directory_uri(); ?&amp;gt;/images/custom-login-logo.png);
+    	}
+	&amp;lt;/style&amp;gt;
+&amp;lt;?php }
+add_action( 'login_enqueue_scripts', 'login_logo' );</pre>
+<h2>更改图标的链接</h2>
+<p>默认情况下，图标链接到WordPress.org网站。您还可以将此链接更改为首选图标，并将其重定向到您自己的网站。为此，请使用下面的挂钩并在登录图标挂钩后立即将其粘贴到<i>functions.<a title="php" href="/tag/php/">php</a>中</i>。</p>
+<pre class="prettyprint lang-php linenums:1">function login_logo_url() {
+	return get_bloginfo( 'url' );
+}
+add_filter( 'login_headerurl', 'login_logo_url' );</pre>
+<h2>更改登录屏幕的设计</h2>
+<p>要自定义默认WordPress登录屏幕的样式，我们需要添加登录页面的样式。为此，我们需要为我们自己的CSS文件使用钩子。这将覆盖默认登录屏幕的样式。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556450971-9760-css-file.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450971-9760-css-file.png" alt="如何轻松自定义WordPress登录页面" sizes="(max-width: 793px) 100vw, 793px" srcset="/wp-content/uploads/2019/04/1556450971-9760-css-file.png 793w, /wp-content/uploads/2019/04/1556450971-9760-css-file-300x199.png 300w, /wp-content/uploads/2019/04/1556450971-9760-css-file-768x508.png 768w" alt="" width="793" height="525" /></a></p>
+<p>首先，我们需要在二十四个WordPress默认主题的CSS文件夹中创建样式表（对于本教程，我将样式表命名为<i>cus<a title="tom" href="/tag/tom/">tom</a>-login-styles.css</i>），然后在<i>functions.<a title="php" href="/tag/php/">php</a></i>文件中添加以下钩子。</p>
+<pre class="prettyprint lang-php linenums:1">function login_custom_stylesheet() { ?&amp;gt;
+	&amp;lt;link rel="stylesheet" id="custom_wp_admin_css"  href="&amp;lt;?php echo get_bloginfo( 'stylesheet_directory' ) . '/css/custom-login-styles.css'; ?&amp;gt;" type="text/css" media="all" /&amp;gt;
+&amp;lt;?php }
+add_action( 'login_enqueue_scripts', 'login_custom_stylesheet' );
+</pre>
+<p>接下来，打开您在默认的二十四个WordPress主题的CSS文件夹下创建的CSS文件。我们首先使用以下代码自定义登录屏幕的背景颜色和字体。</p>
+<pre class="prettyprint lang-php linenums:1">body.login {
+	background-color: #3d3d3d;
+	font-family: Helvetica;
+}</pre>
+<p>现在我们已经更改了登录屏幕的背景颜色和字体，让我们在登录表单的持有者上放置一个漂亮的灰色背景。</p>
+<pre class="prettyprint lang-php linenums:1">.login form {
+	background: #f3f3f3;
+}
+</pre>
+<p>接下来，为正常，焦点和悬停状态自定义表单文本框的外观。</p>
+<pre class="prettyprint lang-php linenums:1">.login form .input,.login input[type=text],.login form input[type=checkbox] {
+	background: #fff;
+	border: 1px solid #b7b7b7;
+            	padding: 5px;
+}
+.login form .input:hover,.login form .input:focus,.login input[type=text]:hover,.login input[type=text]:focus,.login form input[type=checkbox]:hover,.login form input[type=checkbox]:focus {
+	background: #fff;
+	outline: none;
+}</pre>
+<p>然后，更改登录按钮的背景颜色，并在左侧和右侧给它一些填充。我还将字体大小设置为13px，使其看起来像一个平面按钮。</p>
+<pre class="prettyprint lang-php linenums:1">body.login div#login form#loginform p.submit input#wp-submit {
+	border-radius: 0;
+	background: #ffab00;
+	outline: none;
+	border: none;
+	padding: 0 25px;
+	text-align: center;
+	font-size: 13px;
+}
+</pre>
+<p>最后，让我们更改正常和悬停状态的链接文本（<i>忘记密码</i>和<i>返回登录链接</i>），然后将两者都定位到屏幕中心。</p>
+<pre class="prettyprint lang-php linenums:1">body.login div#login p#nav {
+	margin: 20px auto;
+	text-align: center;
+}
+
+body.login div#login p#backtoblog {
+	margin: 0 auto;
+	text-align: center;
+}
+.login #nav a:hover,.login #backtoblog a:hover {
+	color: #ffab00;
+}
+</pre>
+<h2>最后的话</h2>
+<p>我们希望现在您可以看到WordPress的巨大优势以及使用它的可能性。我们同意，它可能不适合您想要构建的每个可能的项目，但对于大多数项目而言。欢迎在下方分享你的意见。</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>为什么你应该选择WordPress</title>
+		<link>/922.html</link>
+				<pubDate>Sun, 28 Apr 2019 11:22:59 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Wordpress]]></category>
+
+		<guid isPermaLink="false">/?p=922</guid>
+				<description><![CDATA[您可能会问自己为什么要使用WordPress？为了使他们的工作最有效，专业的网页设计师和开发人员学习和使用正确的工具非常重要。今天，我想一劳永逸地清楚为什么使用WordPress是大多数自由职业者的最佳选择。我还将介绍如何使用主题框架使您的工作流程更具生 ...]]></description>
+								<content:encoded><![CDATA[<p><span>您可能会问自己为什么要使用WordPress？为了使他们的工作最有效，专业的网页设计师和开发人员学习和使用正确的工具非常重要。今天，我想一劳永逸地清楚为什么使用WordPress是大多数自由职业者的最佳选择。我还将介绍如何使用主题框架使您的工作流程更具生产力。</span></p>
+<hr />
+<p><span>作为一名专业的网页设计师，在构建网站时需要做很多重要的事情。您需要确保站点看起来很棒，加载速度快，响应速度快，并且在所有设备上看起来都很干净。</span></p>
+<p><span>WordPress是构建大多数客户端网站时可以使用的最佳解决方案。Web应用程序很少有例外，因为您确实需要从头开始构建所有内容。例如，在构建AwesomeWeb作业搜索站点时，我们使用了Ruby on Rails。我们开始使用WordPress / CodeIgniter组合，但对于这样的自定义开发解决方案，WordPress不够灵活。</span></p>
+<p><span>但是，大多数客户不需要定制解决方案。在98％的案例中，客户需要一些常见的东西，如在线商店，个人品牌，投资组合，会员资格，博客，以完成简单的商业网站。您可以使用WordPress和</span><span>基本编程语言</span><span>知识轻松构建所有这些。</span></p>
+<div id="attachment_106901" class="wp-caption alignnone no-underline"><a href="/wp-content/uploads/2019/04/1556450532-8982-ompanies-using-wordpress-cms.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450532-8982-ompanies-using-wordpress-cms.jpg" alt="为什么你应该选择WordPress" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450532-8982-ompanies-using-wordpress-cms.jpg 800w, /wp-content/uploads/2019/04/1556450532-8982-ompanies-using-wordpress-cms-300x122.jpg 300w, /wp-content/uploads/2019/04/1556450532-8982-ompanies-using-wordpress-cms-768x312.jpg 768w" alt="" width="800" height="325" /></a></p>
+<p id="caption-attachment-106901" class="wp-caption-text"><span>甚至大品牌也开始使用WordPress是有原因的。速度和简单。</span></p>
+</div>
+<h2><span>为什么要使用WordPress？</span></h2>
+<p><span>WordPress是最受欢迎的内容管理系统（CMS）。所有在线网站中有22％ - 即大约8000万个网站 - 都是使用WordPress构建的。WordPress如此受欢迎的一些主要原因是因为：</span></p>
+<ul>
+<li><span>它很容易学习 - WordPress是开源软件。它也很简单，有大量文档和免费培训视频</span></li>
+<li><span>它有许多插件和主题 - 你不需要成为一个摇滚明星开发人员开始使用WordPress构建网站。在某些情况下，您甚至无需触摸代码即可获得所需的结果。</span></li>
+<li><span>它功能强大 - 您可以通过简单地利用高级主题和插件，轻松快速地构建如网上商店，博客，会员资格，联系表单等。</span></li>
+</ul>
+<p><span>网上有成千上万的免费和高级主题。在没有支付任何费用的情况下购买免费主题可能很诱人，但在您做出决定之前，请继续阅读..</span></p>
+<div id="attachment_106918" class="wp-caption aligncenter no-underline"><a href="/wp-content/uploads/2019/04/1556450532-1532-paidfree.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450532-1532-paidfree.jpg" alt="为什么你应该选择WordPress" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450532-1532-paidfree.jpg 800w, /wp-content/uploads/2019/04/1556450532-1532-paidfree-300x180.jpg 300w, /wp-content/uploads/2019/04/1556450532-1532-paidfree-768x461.jpg 768w" alt="" width="800" height="480" /></a></p>
+<p id="caption-attachment-106918" class="wp-caption-text"><span>投资与专注的免费寻求者。我说这不值得赌博，不是在这里。</span></p>
+</div>
+<h3><span>为什么使用付费WordPress主题vs免费主题？</span></h3>
+<p><span>使用高级主题提供者与免费主题的好处很多。您不应该使用免费的WordPress主题的最重要原因是它缺乏支持，文档和更新。</span></p>
+<p><span>想一想，如果开发人员免费创建和发布主题，他就不会从中赚钱。但他仍然需要以某种方式谋生。免费的WordPress主题不能是一个长期的选择，因为开发人员没有动力免费支持主题，提供文档并在这些年中更新它。你会免费做所有这些工作吗？</span></p>
+<p><span>当开发人员没有从中赚钱时，您不能指望培训资源，文档，免费支持和更新。即使他是地球上最善良的人，赚取自己的生计也将是一个优先事项。此外，免费主题几乎总是质量低于高级主题。</span></p>
+<p><span>你得到你所付出的。</span></p>
+<p><span>高级主题带有更清晰的代码和更好的功能。所有高级主题提供商都提供高质量的设计，深入的文档和世界级的支持。支持非常重要，因为总会出现问题或无法按预期工作。</span></p>
+<p><span>如果您选择免费主题，您依靠其他人的善意来帮助您在论坛中。当您选择购买高级WordPress主题时，您需要支付费用，主题提供商可以帮助您。</span></p>
+<p><span>最重要的是，由于市场竞争激烈，</span><span>优质的WordPress模板</span><span>非常实惠。这对你来说是个好消息！您可以以约50美元的价格购买一个高级主题，或者获得所有主题商店主题和支持，每年约100至300美元。您可以轻松地从一个客户那里赚回来的钱！</span></p>
+<p><span>我7年前开始使用免费的WordPress主题开始1stWebDesigner，但现在，我甚至不看免费主题。仅仅因为它不值得麻烦。我建议您支付50美元购买一个漂亮的，可定制的WordPress主题，并确保包含文档和支持，这将为您节省大量时间。这也意味着你将花费大量时间来自己解决问题。</span></p>
+<h2><span>支付WordPress主题vs主题框架与自定义WordPress开发</span></h2>
+<p><span>当您要构建自定义WordPress设计时，只有几种方法可以启动。</span></p>
+<p><span>许多专业网页设计师遵循以下步骤：</span></p>
+<ol>
+<li><span>头脑风暴，了解需要构建什么，设计应该是什么样子</span></li>
+<li><span>在Photoshop中创建线框和设计网站概念</span></li>
+<li><span>将PSD转换为HTML / CSS模板</span></li>
+<li><span>将HTML / CSS添加到WordPress安装</span></li>
+<li><span>添加功能和动态元素，如博客，在线商店。</span></li>
+</ol>
+<p><span>一些网页设计师直接从HTML / CSS开始，然后转到WordPress; 而其他人直接从PSD转到WordPress，这已经是一种非常有效的工作方式！</span></p>
+<p><span>然而，聪明且经验丰富的网页设计师从入门主题或框架开始，选择布局和功能，并围绕它设计网站。这可以说是创建网站最有效和最有效的方式。我们在1stWebDesigner上非常相信这种方法。</span></p>
+<p><span>例如，之前的1stWebDesigner设计花了我们一年多的时间才完成，当我们以“好”的方式完成草绘，线框和自定义编码所有内容到WordPress。</span></p>
+<p><span>然而，最近的重新设计只花了我们两个星期才完成。我们从Genesis框架开始（</span><span>在这里阅读评论</span><span>），选择了我们想要的布局的儿童主题，定制设计，添加功能，我们完成了。谈论有效率。</span></p>
+<p><span>如果您正在与准备为自定义解决方案付费的高收入客户合作，自定义WordPress主题创建是一个不错的选择。自定义代码是应用程序，Web软件创建和真正的大品牌所必需的。在这些情况下，您甚至不会使用WordPress。但是，大多数客户不需要这样做。他们需要的是一个简单的商业网站，它实现了他们的目标。他们不会欣赏您的超级清洁代码，因为他们会欣赏快速交付和一个转换为帮助他们赚更多钱的网站。</span></p>
+<div id="attachment_106917" class="wp-caption aligncenter no-underline"><a href="/wp-content/uploads/2019/04/1556450531-5698-framework.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450531-5698-framework.jpg" alt="为什么你应该选择WordPress" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450531-5698-framework.jpg 800w, /wp-content/uploads/2019/04/1556450531-5698-framework-300x180.jpg 300w, /wp-content/uploads/2019/04/1556450531-5698-framework-768x461.jpg 768w" alt="" width="800" height="480" /></a></p>
+<p id="caption-attachment-106917" class="wp-caption-text"><span>引擎盖下是什么？</span></p>
+</div>
+<h2><span>什么是WordPress主题框架？</span></h2>
+<p><span>在开始挑选主题框架或根本不使用主题框架之前，确切了解主题框架是什么以及它可以为您做什么是很重要的。</span></p>
+<p><span>WP框架基本上是一个关于毒品的高级WordPress主题。无论何时构建网站，您都经常使用相同的组件。首先打好基础，选择设计和布局（页眉，页脚，单列，2列）。接下来，您将主要功能考虑在内 - 在线商店，销售页面，会员资格和博客。最后，您考虑其他功能，如联系表单，安全性，SEO优化和响应性。</span></p>
+<p><span>WordPress主题框架是您用作创建自己设计的基础的入门主题。框架显着加快了网站开发过程。作为一个不断创建自定义WordPress主题的Web开发人员，您可能厌倦了所有这些重复性任务，例如一遍又一遍地编写相同的代码并经常检查您的标记。主题框架提供了许多内置功能和自定义选项，因此您无需从头开始编写所有代码。</span></p>
+<p><span>框架设计用作父主题（您使用基础的主题）。父主题是您不接触的核心。您将使用子主题来创建独特的设计和其他功能。</span></p>
+<h3><span>为什么<a href="/tag/web%e8%ae%be%e8%ae%a1/" title="Web设计">Web设计</a>人员和开发人员使用WordPress主题框架？</span></h3>
+<p><span>设计人员使用框架的最大原因是加快他们的开发过程。主题框架大大缩短了开发时间，因为您不需要从头开始。您使用框架作为WordPress主题的基础，然后通过使用不同的模块添加功能 - 如拖放功能，滑块，在线商店。您通常只需激活内置的WordPress框架短代码即可访问功能。</span></p>
+<p><span>创建WordPress网站可以像创建新的style.css文件，自定义某些功能以及添加客户端所需的视觉效果一样简单，而不是从头开始创建和编码主题。然后，你完成了！</span></p>
+<p><span>您的客户满意是因为快速交货！另一方面，您很高兴，因为您只是在开发过程中破解了自己的方式，并创建了客户想要超快的网站！现在，您可以投入额外的时间与客户合作，确保网站实现客户的目标并产生正确的结果。</span></p>
+<h2><span>使用主题框架的好处和缺点</span></h2>
+<p><span>事实上，你的决定总会有利有弊。</span></p>
+<p><span>使用WP框架的优点：</span></p>
+<ul>
+<li><span>节省时间，高效开发，速度和易于开发 - 如前所述，使用主题框架可以大大缩短开发时间并让您快速交付。</span></li>
+<li><span>经验丰富的WordPress开发人员的支持和社区 - 最流行的WordPress主题框架背后有一个巨大的社区，帮助您修复错误并快速找到解决方案</span></li>
+<li><span>内置功能 - 通过大型主题商店提供的集成，增加强大的功能非常容易</span></li>
+<li><span>代码质量 - 代码使用最佳实践和WordPress标准编写。优化的CSS，HTML，<a href="/tag/php/" title="php">php</a>功能，SEO</span></li>
+<li><span>升级 - 轻松更新WordPress的未来版本，无需担心它。</span></li>
+</ul>
+<p><span>使用WP框架的缺点：</span></p>
+<ul>
+<li><span>学习曲线 - 掌握任何这些框架需要时间。</span></li>
+<li><span>成本 - 框架比高级主题贵一点，但它非常值得</span></li>
+<li><span>限制 - 框架定义了您可以做什么和不可以做什么。你无法打破这些障碍。对于超级创意设计师来说这可能是一个缺点，但在大多数情况下，它是一个很大的专业人士，而不是骗局</span></li>
+<li><span>不必要的代码 - 框架带有大量内置功能，您可能无法使用。如果您不小心使用不使用的功能清理网站，此代码可能会降低您的网站速度。</span></li>
+</ul>
+<h3><span>我应该使用框架吗？</span></h3>
+<p><span>虽然有一个额外的学习曲线和成本，如果你认真对待WordPress网站开发，你绝对必须使用主题框架。您的速度和性能将显着提高10倍！您将能够处理更多更好的客户。此外，您将能够满足他们的需求并花更多的时间来了解他们的目标。通过这样做，您将能够发展您的业务。</span></p>
+<p><span>从头开始建立一个网站就像建造一个没有蓝图的房子。从框架开始就像使用蓝图一样。</span></p>
+<p><span>我问过具有5年经验的设计师Nicholas Tart关于他对这个问题的看法：</span></p>
+<blockquote><p><span>“我使用了100％客户的框架。它归结为我的时间。我可以构建一个自定义主题，但将我的设计放在框架之上给了我一个50小时的开端。这样，我可以专注于重要的事情，并在广泛支持的框架上提供网站。客户得到一个更好的网站，我更有效地利用我的时间，这两个意味着我可以收取更多费用。“</span></p></blockquote>
+<p><span>您应该使用WordPress并且应该学习并使用框架或入门主题来为您的客户提供良好的服务，这真是一个明智的选择。我们有意专注于推荐WordPress，因为我们相信您希望成为一名成功的自由职业者。对于大多数自由设计师来说，他们的问题不是编程和设计知识，而是缺乏商业技能。客户将通过创建转换网站向您支付您带来的结果。为了做到这一点，您需要更少关注技术并学习一些营销技巧。</span></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>成为一个更好的WordPress开发人员 &#8211; 一次一个项目</title>
+		<link>/918.html</link>
+				<pubDate>Sun, 28 Apr 2019 11:18:27 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Wordpress]]></category>
+
+		<guid isPermaLink="false">/?p=918</guid>
+				<description><![CDATA[时间是衡量你在工作中取得更好成绩的最佳指标之一。但似乎网页设计和开发是一系列工作，提供了最明确的进展证据。你所要做的就是回顾一个旧项目，证据就在那里，看着你。]]></description>
+								<content:encoded><![CDATA[<p><span>时间是衡量你在工作中取得更好成绩的最佳指标之一。但似乎网页设计和开发是一系列工作，提供了最明确的进展证据。你所要做的就是回顾一个旧项目，证据就在那里，看着你。</span></p>
+<p><span>在我自己的职业生涯中，我回到了静态HTML网站的日子。我可以很容易地看到代码改进的迹象 - 特别是在我如何完成各种布局时（提示：表格布局较旧）。</span></p>
+<p><span>但在我为WordPress构建主题的过程中，我也可以看到事情的变化。当然，设计趋势已经过去了。这些是最明显的进步类型。但是，还有其他更微妙的发展方面可以提供更好的进化图景。</span></p>
+<p><span>以下是我通过经验学到的WordPress开发的一些课程。大部分都是通过艰难的方式学到的。而且，虽然我不能保证这是别人会这样做的，但我希望它至少可以激发一些关于我们如何以及为什么做事的想法。</span></p>
+<h2><span>最直接的道路并不总是最好的</span></h2>
+<p><span>我们很少建立一个不包含某种自定义功能的WordPress网站。毕竟，它作为CMS的一部分吸引力。它可以做任何我们梦想的事情。</span></p>
+<p><span>通常，这意味着使用插件。我们确实拥有触手可及的整个世界。他们帮助我们做</span><span>在线销售</span><span>，优化我们的</span><span>搜索引擎</span><span>网站和与他人</span><span>分享内容</span><span>等事情。</span></p>
+<p><span>我们经常认为插件是解决我们面临的任何挑战的最直接途径。而且，虽然编码良好且维护良好的插件可能正是我们所需要的，但使用插件的决定往往比我们想象的更严重。</span></p>
+<p><span>安装和激活<a href="/tag/wordpress%e6%8f%92%e4%bb%b6/" title="WordPress插件">WordPress插件</a>的简易性可能会给我们带来虚假的安全感。点击几下即可提供即时功能（和满足感）。但是，每次我们这样做都会产生潜在的后果。插件几乎可以对网站的每个方面产生影响 - 安全性，性能和兼容性仅举几例。然后，也有可能插件被废弃并让其消亡。这使我们回到原点。</span></p>
+<p><span>在许多情况下，正确的</span><span>代码段</span><span>可以提供更有效的解决方案。它可以节省性能降低的开销，而且重要的是，它在您的控制之内。插件最令人沮丧的一个方面是，您基本上将部分网站的福祉移交给第三方。如果出现问题，你必须依靠它们来修复它。甚至最好的插件开发人员也会遇到一个难以修复的错误。这使您在找到解决方案时等待。</span></p>
+<p><span>这里的底线是，虽然使用插件很好，但也要考虑替代方案。可能有更好的方法来实现您的目标。</span></p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556450285-7719-better-wp-developer-01.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450285-7719-better-wp-developer-01.jpg" alt="成为一个更好的WordPress开发人员 - 一次一个项目" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450285-7719-better-wp-developer-01.jpg 800w, /wp-content/uploads/2019/04/1556450285-7719-better-wp-developer-01-300x150.jpg 300w, /wp-content/uploads/2019/04/1556450285-7719-better-wp-developer-01-768x384.jpg 768w" alt="" width="800" height="400" /></a></p>
+<h2><span>找一个舒适的起点</span></h2>
+<p><span>我使用WordPress进行的第一次设计通常是拉开软件附带的默认主题的结果。例如，我现在正在重新设计的许多网站都是使用</span><a href="/go/?url=https://wordpress.org/themes/twentyten/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer"><span>Twenty Ten</span></a><span>主题的完全黑客版本构建的。我甚至没有使用</span><a href="/go/?url=https://codex.wordpress.org/Child_Themes" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer"><span>儿童主题</span></a><span>，这当然是一个很大的禁忌。我刚刚重新命名主题并开始工作。</span></p>
+<p><span>虽然这种方法有效，但效率很低。我发现自己不得不为每个新项目一遍又一遍地撕掉相同的东西。默认主题实际上意味着用作起点，所以它并不像完全臃肿的主题那样糟糕。不过，还有更好的方法。</span></p>
+<p><span>随着时间的推移，我发现了WordPress入门主题的美感。你可以采用多种方式，从全面的</span><span>框架</span><span>到更多的准系统，比如</span><a href="/go/?url=http://underscores.me/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer"><span>Underscores</span></a><span>（我个人最喜欢的解决方案）。</span></p>
+<p><span>我喜欢Underscores的是，开箱即用，它几乎就像你能得到的那样没有格式化。这意味着在我开始建造之前，我不需要拆开任何东西。我有自己的定制版本，配有一些基本的响应式样式，让我在设计和开发方面有一个健康的开端。</span></p>
+<p><span>这也允许我设计原型，知道它将如何应用于我的入门主题。关于如何实现特定外观或布局的担忧并不多，因为我已经建立了处理大多数事情的方法。这并不意味着仍然存在一些挑战，它只是提供了一个漂亮的空白画布，可以用来工作。</span></p>
+<p><span>如果你开发了很多网站，那么如果你设置自己的入门主题，你将会更进一步。包括最常用的脚本和布局。这将使您立即启动并运行每个项目。</span></p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556450284-1891-better-wp-developer-02.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450284-1891-better-wp-developer-02.jpg" alt="成为一个更好的WordPress开发人员 - 一次一个项目" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450284-1891-better-wp-developer-02.jpg 800w, /wp-content/uploads/2019/04/1556450284-1891-better-wp-developer-02-300x150.jpg 300w, /wp-content/uploads/2019/04/1556450284-1891-better-wp-developer-02-768x384.jpg 768w" alt="" width="800" height="400" /></a></p>
+<h2><span>花时间学习</span></h2>
+<p><span>在早期，我使用WordPress犯下的最大错误之一是，在学习正确的做事方式时，我没有投入基础工作。特别是，我对<a href="/tag/php/" title="php">php</a>的知识非常有限。虽然我知道足以破解我的方式，但没有掌握</span><a href="/go/?url=https://speckyboy.com/design-development-fundamentals/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer"><span>基本原则</span></a><span>使一切都比应该更加困难。</span></p>
+<p><span>例如，似乎每个项目都有一个发展停滞的地方，而我试图弄清楚如何使某些东西发挥作用。因为我并不真正了解事情，所以我发现自己只是在寻找代码片段并希望他们能够做到这一点。我经常发现我甚至无法自定义这些片段以满足我的需求 - 所有这些都是因为我的方法非常分散。</span></p>
+<p><span>最后，我做了一些事情。我在一个夏天参加了一个在线<a href="/tag/php/" title="php">php</a>课程，突然之间，事情开始变得有意义了。我远不是一个主程序员（下一个必备的插件不会很快从我这里来），但这种对事物如何工作的基本理解大大改善了开发过程。</span></p>
+<p><span>我仍然时不时地陷入困境，但这些问题往往比以前更快地得到解决。而且，虽然我仍然需要代码片段，但我通常可以让它适合我的情况。</span></p>
+<p><span>所以，不要用WordPress建立自己的方式，花时间学习你需要知道的技能。即使是基本的理解，也会让你做得比你想象的要多。</span></p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556450284-9033-better-wp-developer-03.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556450284-9033-better-wp-developer-03.jpg" alt="成为一个更好的WordPress开发人员 - 一次一个项目" sizes="(max-width: 800px) 100vw, 800px" srcset="/wp-content/uploads/2019/04/1556450284-9033-better-wp-developer-03.jpg 800w, /wp-content/uploads/2019/04/1556450284-9033-better-wp-developer-03-300x150.jpg 300w, /wp-content/uploads/2019/04/1556450284-9033-better-wp-developer-03-768x384.jpg 768w" alt="" width="800" height="400" /></a></p>
+<h2><span>明天将永远更好</span></h2>
+<p><span>最后，我认为值得指出的是，发展成为一个更好的开发者是我们</span><em><span>应该</span></em><span>做的。因此，当你不得不深入研究并试图修复你多年前建立的东西时，很容易对自己很难。旧的，“我为什么这样做呢？”是我们迟早都会面临的哀叹。</span></p>
+<p><span>关键是要从你所做的事情中学习。随着时间的推移，你会发现你的知识更丰富，你的过程更精简。结果是你会改进 - 一次一个项目。</span></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Node.js概述</title>
+		<link>/875.html</link>
+				<pubDate>Sun, 28 Apr 2019 07:42:32 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Linux]]></category>
+		<category><![CDATA[Node.js]]></category>
+
+		<guid isPermaLink="false">/?p=875</guid>
+				<description><![CDATA[最近几年，Web 领域出现了一个全新的 JavaScript 开发框架——Node.js。该框架一经问世，便以其独特的优势得到了广大开发人员的关注。以下主要从什么是 Node.js 框架，使用 Node.js 框架能够解决什么问题，为什么要用 Node.js 框架，在哪些场合下应该考虑使 ...]]></description>
+								<content:encoded><![CDATA[<p>最近几年，Web 领域出现了一个全新的 JavaScript 开发框架——Node.<a href="/tag/js/" title="js">js</a>。该框架一经问世，便以其独特的优势得到了广大开发人员的关注。以下主要从什么是 Node.<a href="/tag/js/" title="js">js</a> 框架，使用 Node.<a href="/tag/js/" title="js">js</a> 框架能够解决什么问题，为什么要用 Node.<a href="/tag/js/" title="js">js</a> 框架，在哪些场合下应该考虑使用 Node.<a href="/tag/js/" title="js">js</a> 来展开概述。</p>
+<h2>一、什么是 Node.<a href="/tag/js/" title="js">js</a> 框架</h2>
+<p>官网介绍：“Node.<a href="/tag/js/" title="js">js</a> 是一个基于 <a href="/go/?url=https://developers.google.com/v8/" rel="nofollow" data-no-instant target="_blank">Chrome V8</a> 引擎的 JavaScript 运行环境。Node.<a href="/tag/js/" title="js">js</a> 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。Node.<a href="/tag/js/" title="js">js</a> 的包管理器 <a href="/go/?url=https://www.npmjs.com/" rel="nofollow" data-no-instant target="_blank">npm</a>，是全球最大的开源库生态系统。”。</p>
+<p>也就是说，Node.<a href="/tag/js/" title="js">js</a> 是一个基于 Chrome JavaScript 运行时建立的平台，用于方便地搭建响应速度快、易于扩展的网络应用。Node.<a href="/tag/js/" title="js">js</a> 使用事件驱动，非阻塞 I/O 模型而得以轻量和高效，非常适合在分布式设备上运行数据密集型的实时应用。</p>
+<h2>二、使用 Node.<a href="/tag/js/" title="js">js</a> 框架能够解决什么问题</h2>
+<p>Node.<a href="/tag/js/" title="js">js</a> 的首要目标是提供一种简单的、用于创建高性能服务器及可在该服务器中运行的各种应用程序的开发工具。在 Java、<a href="/tag/php/" title="php">php</a> 或 ASP.NET 等服务器端语言中，为每一个客户端连接创建一个新的线程，而每一个线程需要耗费大约 2MB 的内存。也就是说，理论上，具有 8GB 内存的服务器可以同时连接的最大用户数为 4000 个左右。要让 Web 应用程序支持更多的用户，就需要增加服务器的数量，而 Web 应用程序的硬件成本也就随之增加了。不仅如此，在技术层面也会因此产生一些潜在的问题。例如，由于同一个用户的不同客户端请求可能会被不同的服务器处理，因此必须在所有的服务器之间共享所以的资源。由此可见，在一个 Web 应用程序中，一个主要的瓶颈是服务器所支持的最大同时连接用户量。</p>
+<p>Node.<a href="/tag/js/" title="js">js</a> 修改了客户端到服务器端的连接方法，解决了这个问题。因为它并不为每个客户端连接创建一个新的线程，而是为每个客户端连接触发一个在 Node.<a href="/tag/js/" title="js">js</a> 内部进行处理的事件。因此，如果使用 Node.<a href="/tag/js/" title="js">js</a>，可以同时处理多达几万个用户的客户端连接。因此，当需要使 Web 应用程序能够支持大量用户的并发连接的时候，我们应该考虑使用 Node.<a href="/tag/js/" title="js">js</a>。</p>
+<h2>三、为什么要用 Node.<a href="/tag/js/" title="js">js</a> 框架</h2>
+<h3>3.1 实现高性能服务器</h3>
+<p>严格地说，Node.<a href="/tag/js/" title="js">js</a> 是一个开发各种 Web 服务器的开发工具。在 Node.<a href="/tag/js/" title="js">js</a> 服务器中，运行的是高性能 V8 JavaScript 脚本语言，该语言是一种可以运行在服务器端的 JavaScript 脚本语言。</p>
+<p>V8 JavaScript 脚本语言是一种被 V8 JavaScript 引擎所解析并执行的脚本语言。V8 JavaScript 引擎由 Google 公司使用 C++ 语言开发的一种高性能 JavaScript 引擎，该引擎并不局限于在浏览器中运行。Node.<a href="/tag/js/" title="js">js</a> 将其转用在了服务器中，并且为其提供了许多附加的具有各种不同用途的 API。例如，在一个服务器中，经常需要处理各种二进制数据。在 JavaScript 脚本语言中，只具有非常有限的对二进制数据的处理能力，而 Node.<a href="/tag/js/" title="js">js</a> 所提供的 <a href="/tag/buff/" title="buff">buff</a>er 类则提供了丰富的对二进制数据的处理能力。</p>
+<p>另外，在 V8 JavaScript 引擎内部使用一种全新的编译技术。这意味着开发者编写的高端的 JavaScript 脚本代码与开发者编写的低端的 C 语言具有非常相近的执行效率，这也是 Node.<a href="/tag/js/" title="js">js</a> 服务器可以提供的一个重要特性。</p>
+<h3>3.2 非阻塞型 I/O 及事件环机制</h3>
+<p>为了实现高性能，Node.<a href="/tag/js/" title="js">js</a> 中采用了以下两种机制：</p>
+<ul>
+<li>非阻塞型 I/O</li>
+<li>事件环</li>
+</ul>
+<p>JavaScript 脚本语言的一个特征是它只支持单线程。V8 JavaScript 脚本语言也是如此，因此不需要担心它会造成死锁现象。但是与客户端脚本语言不同的是，Node.<a href="/tag/js/" title="js">js</a> 中为 V8 JavaScript 脚本语言提供了非阻塞型 I/O 机制。例如，当在访问数据库取得搜索结果的时候，在开始访问数据库之后、数据库返回结果之前，存在一段等待时间。在传统的单线程处理机制中，在执行了访问数据库的代码之后，整个线程都将暂停下来，等待数据库返回查询结果之后才能继续执行其后面的代码。也就是说，I/O 操作阻塞了代码的执行，极大地降低了程序的执行效率。由于 Node.<a href="/tag/js/" title="js">js</a> 中采用了非阻塞型 I/O 机制，因此在执行了访问数据库的代码之后将立即转而执行其后面的代码，把数据库返回结果的处理代码放在回调函数中执行，从而提高了程序的执行效率。</p>
+<p>另外，在 Node.<a href="/tag/js/" title="js">js</a> 中，虽然不具有因为用户鼠标单击按钮或输入文字等操作而触发的事件，但是具有由于客户端请求建立连接、通过此连接而接收客户端提交数据、停止客户端提交数据的接收等行为而触发的事件。在 Node.<a href="/tag/js/" title="js">js</a> 中，在一个时刻只能执行一个事件回调函数，但是在执行一个事件回调函数的中途可以转而处理其他事件（包括触发新的事件、声明该事件的回调函数等），然后返回继续执行原事件回调函数，这种处理机制称为事件环机制。</p>
+<h2>四、在哪些场合下应该考虑使用 Node.<a href="/tag/js/" title="js">js</a></h2>
+<p>当应用程序需要处理大量并发的输入/输出，而在向客户端发出响应之前，应用程序内部并不需要进行非常复杂的处理的时候，我们应该考虑使用 Node.<a href="/tag/js/" title="js">js</a> 来进行改应用程序的开发。例如，我们可以开发聊天服务器、综合服务类网站或电子商务网站的服务器等。</p>
+<h3>4.1 聊天服务器</h3>
+<p>在一个具有很高人气的聊天应用程序中，在同一时刻通常可能存在着大量用户与聊天服务器之间的并发连接，而服务器端本身并不存在非常复杂的处理。</p>
+<h3>4.2 综合服务类网站或电子商务网站的服务器</h3>
+<p>在这类网站的服务器端，往往可能在每秒钟内接收到多达上千条数据并且需要将这些数据书写到数据库中，Node.<a href="/tag/js/" title="js">js</a> 是解决这类问题的关键。Node.<a href="/tag/js/" title="js">js</a> 将通过其队列机制将这些数据迅速书写在缓冲区中，然后再通过每一个单独的处理从缓冲区中取出这些数据并将其书写到数据库中。如果使用其他服务器（如 Apache 服务器或 <a href="/tag/tom/" title="tom">tom</a>cat 服务器）的话，由于这些服务器采用的均为阻塞型 I/O 机制，因此需要为每条数据（到数据库中）的写入等待一段时间。如果使用 Node.<a href="/tag/js/" title="js">js</a> 服务器，由于其采用的是非阻塞型 I/O 机制，因此可以同时实现这些数据到数据库中的写入，而不必再为每条数据的写入等待一段时间。</p>
+<p>本文参考自书籍<strong>《Node.<a href="/tag/js/" title="js">js</a> 权威指南》</strong></p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Web设计辅助功能的工具和指南</title>
+		<link>/866.html</link>
+				<pubDate>Sun, 28 Apr 2019 07:36:54 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[PHP]]></category>
+		<category><![CDATA[Web设计]]></category>
+
+		<guid isPermaLink="false">/?p=866</guid>
+				<description><![CDATA[十五年前，网络可访问性并非许多设计师的想法。早在1996年就确实存在在线标准。但它们的跟踪频率远低于现在，许多人只是在努力使用互联网。]]></description>
+								<content:encoded><![CDATA[<p>十五年前，网络可访问性并非许多设计师的想法。早在1996年就确实存在在线标准。但它们的跟踪频率远低于现在，许多人只是在努力使用互联网。</p>
+<p>在过去十年中，网络在使网站可访问方面取得了巨大进步。但是，由您，设计师和开发人员来决定优化您自己的网站。不知道从哪里开始？这些用于Web可访问性的工具和指南将帮助您设计更好的Web。</p>
+<h2><a href="/go/?url=https://www.w3.org/WAI/fundamentals/accessibility-intro/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">Web可访问性简介</a></h2>
+<p>什么是Web可访问性，为什么要实现它，最重要的是 - <a href="/go/?url=https://www.w3.org/WAI/fundamentals/accessibility-principles/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">你怎么能这样做</a>？这个宝贵的资源向您介绍了可访问性的基础知识，可以帮助您开始优化您的网站。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556436967-9567-web-accessibility-tools-01.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556436967-9567-web-accessibility-tools-01.png" alt="Web设计辅助功能的工具和指南" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1556436967-9567-web-accessibility-tools-01.png 850w, /wp-content/uploads/2019/04/1556436967-9567-web-accessibility-tools-01-300x150.png 300w, /wp-content/uploads/2019/04/1556436967-9567-web-accessibility-tools-01-768x383.png 768w" alt="" width="850" height="424" /></a></p>
+<h2><a href="/go/?url=https://a11yproject.com/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">A11Y项目</a></h2>
+<p>可访问性不是一个容易讨论的主题。有几十个标准和几小时的阅读材料，有些人只是不打扰。辅助功能项目旨在通过易于阅读的文章，一口大小的提示和大量有用的指南使该主题更加平易近人。</p>
+<h2><a href="/go/?url=https://usecontrast.com/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">对比</a></h2>
+<p>高对比度颜色对于视力障碍者非常重要。有一些工具可以检查您网站的颜色对比度，但这会破坏您的设计流程。此macOS应用程序立即评分颜色。不再猜测或花费分钟输入十六进制代码。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556436967-2669-web-accessibility-tools-02.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556436967-2669-web-accessibility-tools-02.jpg" alt="Web设计辅助功能的工具和指南" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1556436967-2669-web-accessibility-tools-02.jpg 850w, /wp-content/uploads/2019/04/1556436967-2669-web-accessibility-tools-02-300x180.jpg 300w, /wp-content/uploads/2019/04/1556436967-2669-web-accessibility-tools-02-768x461.jpg 768w" alt="" width="850" height="510" /></a></p>
+<h2><a href="/go/?url=http://getstark.co/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">斯塔克</a></h2>
+<p>如果有一个工具可以让您从头开始设计可访问性，该怎么办？Stark是一个Adobe XD和Sketch插件，可以做到这一点。检查对比度，运行色盲模拟，并获得快速颜色建议。现在，即使在模型阶段，您也可以创建一个美观且易于访问的站点。</p>
+<h2><a href="/go/?url=https://khan.github.io/tota11y/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">tota11y</a></h2>
+<p>Tota11y是一个非常有用的工具，可以从您的浏览器书签激活，并通知您页面上的可访问性违规。它是开源的，附带许多插件，可以检测到一系列问题。在您的网站上激活它，看看您是否通过！</p>
+<h2><a href="/go/?url=https://toolness.github.io/accessible-color-matrix/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">可访问的颜色矩阵</a></h2>
+<p>挑选<a href="/go/?url=https://1stwebdesigner.com/web-based-color-tools/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">调色板</a>？此工具向您显示调色板的工作方式，以及何时不符合对比度要求的注释。现在没有人会努力阅读您网站上的文字。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556436967-8286-web-accessibility-tools-03.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556436967-8286-web-accessibility-tools-03.png" alt="Web设计辅助功能的工具和指南" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1556436967-8286-web-accessibility-tools-03.png 850w, /wp-content/uploads/2019/04/1556436967-8286-web-accessibility-tools-03-300x180.png 300w, /wp-content/uploads/2019/04/1556436967-8286-web-accessibility-tools-03-768x461.png 768w" alt="" width="850" height="510" /></a></p>
+<h2><a href="/go/?url=http://wave.webaim.org/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">WAVE Web辅助功能工具</a></h2>
+<p>WAVE是一个网页检查器，可以通过各种标准运行页面，在交互式面板中报告错误，警报和正确实现的功能。虽然它不能替代人体测试，但它可以帮助您设置正确的设计路径。</p>
+<h2><a href="/go/?url=https://achecker.ca/checker/index.php" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">Web辅助功能检查器</a></h2>
+<p>此可访问性检查器在一个简单列表中报告页面上的问题，该列表由已知的，可能的和可能的问题分段。这个还附带了额外的功能，例如上传或粘贴HTML文件的功能。您还可以检查不同的标准！</p>
+<h2><a href="/go/?url=https://www.html5accessibility.com/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">HTML5辅助功能</a></h2>
+<p>想知道主流浏览器支持哪些辅助功能？这个漂亮的资源详细介绍了有关各个元素以及它们如何测试浏览器支持的信息。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556436967-7853-web-accessibility-tools-06.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556436967-7853-web-accessibility-tools-06.jpg" alt="Web设计辅助功能的工具和指南" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1556436967-7853-web-accessibility-tools-06.jpg 850w, /wp-content/uploads/2019/04/1556436967-7853-web-accessibility-tools-06-300x208.jpg 300w, /wp-content/uploads/2019/04/1556436967-7853-web-accessibility-tools-06-768x531.jpg 768w" alt="" width="850" height="588" /></a></p>
+<h2><a href="/go/?url=https://accessibility.18f.gov/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">18F辅助功能指南</a></h2>
+<p>这是一个关于Web可访问性的精彩资源，指南和文章的精彩集合。如果您需要更多阅读材料，请从这里开始！它也是企业测试工具的重要来源。</p>
+<h2><a href="/go/?url=https://github.com/marketplace/accesslint" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">Acce</a><a title="ssl" href="/tag/ssl/">ssl</a><a href="/go/?url=https://github.com/marketplace/accesslint" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">int</a></h2>
+<p>GitHub用户？此辅助功能检查程序会自动检测并指出违规行为，这很简单。它还会重新检查代码更改，以便在您确实修复问题时通知您。对于开源项目，它是完全免费的，但如果您运行私有项目，则需要每月订阅。</p>
+<h2><a href="/go/?url=https://developers.google.com/web/tools/lighthouse/" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">灯塔</a></h2>
+<p>Lighthouse是Google Chrome开发人员工具中提供的高级工具。除性能问题外，它还会检查可访问性错误。您可以从Chrome，命令行或节点模块运行它。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1556436967-7513-web-accessibility-tools-05.jpg"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556436967-7513-web-accessibility-tools-05.jpg" alt="Web设计辅助功能的工具和指南" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1556436967-7513-web-accessibility-tools-05.jpg 850w, /wp-content/uploads/2019/04/1556436967-7513-web-accessibility-tools-05-300x180.jpg 300w, /wp-content/uploads/2019/04/1556436967-7513-web-accessibility-tools-05-768x461.jpg 768w" alt="" width="850" height="510" /></a></p>
+<h2>使Web更易于访问</h2>
+<p>美国有近五分<a href="/go/?url=https://www.census.gov/newsroom/releases/archives/miscellaneous/cb12-134.html" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">之一的人</a>患有残疾。<a href="/go/?url=https://www.nih.gov/news-events/news-releases/visual-impairment-blindness-cases-us-expected-double-2050" rel="nofollow" data-no-instant target="_blank" target="_blank" rel="noopener noreferrer">320万美国人视力受损</a>，而820万人有视力问题，而且这个数字只在增长。您应该尽力遵循可访问性标准，这样每个人都可以浏览您的网站，而不必面对乱码的屏幕阅读器输出，阅读困难和头痛。</p>
+<p>像<code>alt</code>向图像添加文本和增加对比度这样简单的事情可以为您的残疾用户带来巨大的变化，但是您可以做的事情总是更多。不要在事后才考虑无障碍。</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>使用 OpCache 之后提升 PHP 5.5+ 程序性能</title>
+		<link>/757.html</link>
+				<comments>/757.html#comments</comments>
+				<pubDate>Fri, 26 Apr 2019 14:01:37 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[PHP]]></category>
+		<category><![CDATA[php性能]]></category>
+		<category><![CDATA[php拓展]]></category>
+
+		<guid isPermaLink="false">/?p=757</guid>
+				<description><![CDATA[说明 php 5.5 以后内建了 OpCache , OpCache 的加速原理是把编译后的 bytecode 存储在内存里面，避免重复编译 php 所造成的资源浪费. 如何启用 虽然内建了，但是默认没有启用，下面是开启的布置，以这套环境为例子: PHP 5.5 Ubuntu 14.04 Nginx PH ...]]></description>
+								<content:encoded><![CDATA[<h2>说明</h2>
+<p><a title="php" href="/tag/php/">php</a> 5.5 以后内建了 <code>OpCache</code> , <code>OpCache</code> 的加速原理是把编译后的 <code>bytecode</code> 存储在内存里面，避免重复编译 <a title="php" href="/tag/php/">php</a> 所造成的资源浪费.</p>
+<h2>如何启用</h2>
+<p>虽然内建了，但是默认没有启用，下面是开启的布置，以这套环境为例子:</p>
+<pre class="prettyprint lang- linenums:1">PHP 5.5
+Ubuntu 14.04
+Nginx
+PHP-FPM</pre>
+<h3>修改 <a title="php" href="/tag/php/">php</a>.ini 文件</h3>
+<pre class="prettyprint lang-bsh linenums:1">sudo vim /etc/php5/fpm/php.ini</pre>
+<p>在文件最后面加入:</p>
+<pre class="prettyprint lang-php linenums:1">; 开关打开
+opcache.enable=1
+
+; 可用内存, 酌情而定, 单位 megabytes
+opcache.memory_consumption=256
+
+; 对多缓存文件限制, 命中率不到 100% 的话, 可以试着提高这个值
+opcache.max_accelerated_files=5000
+
+; Opcache 会在一定时间内去检查文件的修改时间, 这里设置检查的时间周期, 默认为 2, 定位为秒
+opcache.revalidate_freq=240</pre>
+<p>重启服务器</p>
+<pre class="prettyprint lang-bsh linenums:1">sudo service php5-fpm restart
+sudo service nginx restart</pre>
+<h2>APC VS OpCache</h2>
+<p>APC 是将要被遗弃的项目，<a title="php" href="/tag/php/">php</a> 5.5 都不支持，而在 <a title="php" href="/tag/php/">php</a> 5.5 和 5.6 版本，OpCache 是默认内建的，并且支持 5.2 到 5.4 的安装.</p>
+<div data-unique="1bb006"></div>
+<h2>如何查看效果</h2>
+<ul>
+<li>拥有漂亮的图形化界面的项目 : <a href="/go/?url=https://github.com/PeeHaa/OpCacheGUI" rel="nofollow" data-no-instant target="_blank">https://github.com/PeeHaa/OpCacheGUI</a></li>
+<li>单文件，方便部署的项目: <a href="/go/?url=https://github.com/rlerdorf/opcache-status" rel="nofollow" data-no-instant target="_blank">https://github.com/rlerdorf/opcache-status</a></li>
+</ul>
+<div data-unique="d8321c"></div>
+<h3>效果图 <a href="/wp-content/uploads/2019/04/1556287263-5478-sparkles.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556287263-5478-sparkles.png" alt="使用 OpCache 之后提升 PHP 5.5+ 程序性能" alt="" width="72" height="72" /></a></h3>
+<p>下图是 <a title="php" href="/tag/php/">php</a>Hub 开启了 OpCache 后的效果 ( <a href="/go/?url=http://newrelic.com/" rel="nofollow" data-no-instant target="_blank">New Relic</a> 监控后台截屏 ) :</p>
+<div class="fluidbox__wrap">
+<p><a href="/wp-content/uploads/2019/04/1556287263-8397-4xPI2Mfy4g.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556287263-8397-4xPI2Mfy4g.png" alt="使用 OpCache 之后提升 PHP 5.5+ 程序性能" sizes="(max-width: 806px) 100vw, 806px" srcset="/wp-content/uploads/2019/04/1556287263-8397-4xPI2Mfy4g.png 806w, /wp-content/uploads/2019/04/1556287263-8397-4xPI2Mfy4g-300x155.png 300w, /wp-content/uploads/2019/04/1556287263-8397-4xPI2Mfy4g-768x397.png 768w" alt="" width="806" height="417" /></a></p>
+<div class="fluidbox__ghost"></div>
+</div>
+<p>开启后的 <a title="php" href="/tag/php/">php</a> 平均响应时间不到 60ms, 之前是 120 ~ 130ms</p>
+<div class="fluidbox__wrap">
+<p><a href="/wp-content/uploads/2019/04/1556287263-9422-wx6uxcAbxZ.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1556287263-9422-wx6uxcAbxZ.png" alt="使用 OpCache 之后提升 PHP 5.5+ 程序性能" sizes="(max-width: 801px) 100vw, 801px" srcset="/wp-content/uploads/2019/04/1556287263-9422-wx6uxcAbxZ.png 801w, /wp-content/uploads/2019/04/1556287263-9422-wx6uxcAbxZ-300x158.png 300w, /wp-content/uploads/2019/04/1556287263-9422-wx6uxcAbxZ-768x406.png 768w" alt="" width="801" height="423" /></a></p>
+<div class="fluidbox__ghost"></div>
+</div>
+<p>大家有没有觉得访问的时候快了一点点呢. #[滑稽]</p>
+<div></div>
+]]></content:encoded>
+							<wfw:commentRss>/757.html/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+							</item>
+		<item>
+		<title>初探 OPcache 拓展</title>
+		<link>/752.html</link>
+				<pubDate>Fri, 26 Apr 2019 13:57:23 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[PHP]]></category>
+		<category><![CDATA[php性能]]></category>
+		<category><![CDATA[php拓展]]></category>
+
+		<guid isPermaLink="false">/?p=752</guid>
+				<description><![CDATA[它是由 php 官方公司 Zend 开发的一款免费使用的 php 优化加速拓展。将 php Code 预编译生成的脚本文件 OPcode 缓存在共享内存中供以后反复使用，从而避免了从磁盘读取代码再次编译的时间消耗。同时，它还应用了一些代码优化模式，使得代码执行更快。从而 ...]]></description>
+								<content:encoded><![CDATA[<p>它是由 <a href="/tag/php/" title="php">php</a> 官方公司 Zend 开发的一款免费使用的 <a href="/tag/php/" title="php">php</a> 优化加速拓展。将 <a href="/tag/php/" title="php">php</a> Code 预编译生成的脚本文件 OPcode 缓存在共享内存中供以后反复使用，从而避免了从磁盘读取代码再次编译的时间消耗。同时，它还应用了一些代码优化模式，使得代码执行更快。从而加速 <a href="/tag/php/" title="php">php</a> 应用响应。</p>
+<h3>正常 <a href="/tag/php/" title="php">php</a> Code 生命周期</h3>
+<div class="fluidbox__wrap">
+<p>::__IHACKLOG_REMOTE_IM<a href="/tag/age/" title="age">age</a>_AUTODOWN_BLOCK__::0</p>
+<div class="fluidbox__ghost"></div>
+</div>
+<p>每次处理一个请求，<a href="/tag/php/" title="php">php</a> 脚本都会执行一遍上面的步骤，如果 <a href="/tag/php/" title="php">php</a> Code 没有变化，那么 OPcode 也不会有变化。显然没必要每次都重新生成 OPcode，结合在 Web 中非常常见的缓存机制，我们也可以把 OPcode 缓存下来，直接通过缓存访问 OPcode，想想都美滋滋。</p>
+<div data-unique="0e8ae1"></div>
+<h3>启用 OPcache 之后的生命周期</h3>
+<div class="fluidbox__wrap">
+<p>::__IHACKLOG_REMOTE_IM<a href="/tag/age/" title="age">age</a>_AUTODOWN_BLOCK__::1</p>
+<div class="fluidbox__ghost"></div>
+</div>
+<p>避免重复编译，减少 CPU 和内存的开销。</p>
+<blockquote><p>OPcache 在 <a href="/tag/php/" title="php">php</a> 5.5 以后默认安装，需要我们手动开启与相关配置。</p></blockquote>
+<h3>推荐一款轻量级的压测工具 wrk</h3>
+<blockquote><p>wrk 是一款针对 Http 协议的基准测试工具，它能够在单机多核 CPU 的条件下，使用系统自带的高性能 I/O 机制，如 epoll，kqueue 等，通过多线程和事件模式，对目标机器产生大量的负载。</p></blockquote>
+<ul>
+<li>轻量级性能测试工具</li>
+<li>安装非常简单</li>
+<li>几分钟就能学会基本使用</li>
+<li>高性能 I/O 机制</li>
+</ul>
+<h5>安装</h5>
+<pre class="prettyprint lang-bsh linenums:1">git clone https://github.com/wg/wrk.git
+
+cd wrk
+
+make
+
+sudo cp wrk /usr/local/bin
+
+wrk -v
+
+...
+...</pre>
+<h5>基础使用</h5>
+<pre class="prettyprint lang- linenums:1">wrk -t12 -c400 -d10s http://your.app.domain/</pre>
+<p>使用 12 个线程运行 10 秒，400 个 Http 并发。</p>
+<p>更多使用方法可深入了解。</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>Laravel 开源学校管理系统</title>
+		<link>/746.html</link>
+				<pubDate>Mon, 22 Apr 2019 23:38:38 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[PHP]]></category>
+		<category><![CDATA[Laravel]]></category>
+		<category><![CDATA[学校管理系统]]></category>
+
+		<guid isPermaLink="false">/?p=746</guid>
+				<description><![CDATA[Unified Transform 是一个开源的学校管理平台，使用 Laravel 5.5（当前 LTS）和 可在 GitHub 上获得 构建:]]></description>
+								<content:encoded><![CDATA[<p><a href="/wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX.png" alt="Laravel 开源学校管理系统" sizes="(max-width: 1680px) 100vw, 1680px" srcset="/wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX.png 1680w, /wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX-300x153.png 300w, /wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX-768x393.png 768w, /wp-content/uploads/2019/04/1555976297-8888-QUZSKv4QJX-1024x524.png 1024w" alt="" width="1680" height="859" /></a></p>
+<p>Unified Transform 是一个开源的学校管理平台，使用 <a href="/tag/laravel/" title="Laravel">Laravel</a> 5.5（当前 LTS）和 可在 GitHub 上获得 构建:</p>
+<p>在较高的层次上，Unified Transform 的主要功能包括：</p>
+<p>角色：超级管理员，管理员，老师，学生，图书管理员，会计师<br />
+出勤<br />
+评分<br />
+注册<br />
+公告，教学大纲<br />
+图书馆<br />
+考试<br />
+年级<br />
+账号<br />
+消息<br />
+这是一个大型的 <a href="/tag/laravel/" title="Laravel">Laravel</a> 项目，因此您可能希望深入了解开源代码（包括测试），以了解它是如何构建的并提供功能。 您可以在 <a href="/go/?url=https://github.com/changeweb/Unifiedtransform" rel="nofollow" data-no-instant target="_blank">changeweb / Unifiedtransform</a> 上了解有关此应用程序的更多信息并查看 GitHub 上的源代码。</p>
+<p><a href="/wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB.png" alt="Laravel 开源学校管理系统" sizes="(max-width: 1680px) 100vw, 1680px" srcset="/wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB.png 1680w, /wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB-300x156.png 300w, /wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB-768x400.png 768w, /wp-content/uploads/2019/04/1555976290-1690-PTfN5lWGuB-1024x533.png 1024w" alt="" width="1680" height="874" /></a></p>
+<p>Practice makes perfect.</p>
+]]></content:encoded>
+										</item>
+		<item>
+		<title>古腾堡将如何改变你的WordPress工作流程？</title>
+		<link>/736.html</link>
+				<pubDate>Sun, 21 Apr 2019 15:39:05 +0000</pubDate>
+		<dc:creator><![CDATA[zisu]]></dc:creator>
+				<category><![CDATA[Wordpress]]></category>
+		<category><![CDATA[古腾堡]]></category>
+
+		<guid isPermaLink="false">/?p=736</guid>
+				<description><![CDATA[您使用WordPress开发和创建内容的方式正在发生变化。随着WordPress 5.0和新的Gutenberg编辑器的发布，将会进行大量的调整。它们不仅影响我们在屏幕上看到的内容，还影响我们用于定制后端的基础技术。]]></description>
+								<content:encoded><![CDATA[<p>您使用WordPress开发和创建内容的方式正在发生变化。随着WordPress 5.0和新的Gutenberg编辑器的发布，将会进行大量的调整。它们不仅影响我们在屏幕上看到的内容，还影响我们用于定制后端的基础技术。</p>
+<p>需要特别注意的是，不仅仅是网络专业人员将承担改变工作流程的负担。日常用户也将有自己的学习曲线来处理。例如，撰写博客文章的简单行为与<a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>相比，与经典编辑器的看法大不相同。</p>
+<p>这不是将任何这些变化描绘为正面或负面。无论你对他们的感受如何，他们都是变化的。</p>
+<p>那么，有什么变化呢？让我们来看看WordPress 5.0将产生最大影响的一些领域。</p>
+<h2>用<a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>写作</h2>
+<p>WordPress 5.0最明显的变化是基于块的Gutenberg编辑器。单个矩形字段在您的下一篇博文中输入的日子已经一去不复返了。相反，几乎所有东西都包含在便携式块中 - 包括文本段落。</p>
+<p>这种变化的积极方面是重新排列内容很容易 - 这可能会让Classic编辑器感到沮丧。例如，用户可以编辑一个块而不用担心影响任何周围的内容。</p>
+<p>不过，这需要一些时间来适应 - 特别是对于长期用户。用户界面非常直观，但与标准的WordPress安装完全不同。</p>
+<p>哦，还有一个值得一提的关于那些段落块的提示：在一个段落末尾点击Enter键会自动创建另一个新块。因此，您可以继续在编辑器中编写，而无需通过UI手动添加块。或者，您可以使用“经典”块，以允许更传统的内容写作风格。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1555861141-8572-wp-5-workflow-changes-01.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1555861141-8572-wp-5-workflow-changes-01.png" alt="古腾堡将如何改变你的WordPress工作流程？" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1555861141-8572-wp-5-workflow-changes-01.png 850w, /wp-content/uploads/2019/04/1555861141-8572-wp-5-workflow-changes-01-300x141.png 300w, /wp-content/uploads/2019/04/1555861141-8572-wp-5-workflow-changes-01-768x361.png 768w" alt="" width="850" height="400" /></a></p>
+<h2>自定义编辑屏幕</h2>
+<p>WordPress 5.0和Gutenberg最大的变化是编辑屏幕的自定义看起来和构建的方式。</p>
+<p>例如，如果您使用诸如高级自定义字段之类的插件来创建自定义字段UI设置，它仍然可以正常工作。但<a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>强迫这些领域一直到屏幕的最底层。因此，您为后端构建的任何精心设计的自定义布局都将被置于首屏之外 - 除非您选择继续使用Classic编辑器。</p>
+<p>除此之外，在5.0版本的世界中，向编辑器本身添加自定义功能是一个完全不同的过程。由于经典编辑器基于TinyMCE的设置被推到一边，您需要为Gutenberg 创建一个自定义块，以便与编辑器集成。这需要一些严格的React和JavaScript知识。</p>
+<p>值得庆幸的是，前面提到的高级自义字段和新的块实验室插件都提供了更简单的方法来创建自定义块。这将使更多开发人员能够为新编辑器构建自定义功能，而无需深入研究<a href="/tag/js/" title="js">js</a>的杂草。这个过程将更加熟悉，但仍需要一些学习的努力。</p>
+<p>总而言之，自定义编辑屏幕将需要一种非常不同的方法，以实现与WordPress编辑器UI的相同级别的集成。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1555861141-2590-wp-5-workflow-changes-02.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1555861141-2590-wp-5-workflow-changes-02.png" alt="古腾堡将如何改变你的WordPress工作流程？" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1555861141-2590-wp-5-workflow-changes-02.png 850w, /wp-content/uploads/2019/04/1555861141-2590-wp-5-workflow-changes-02-300x141.png 300w, /wp-content/uploads/2019/04/1555861141-2590-wp-5-workflow-changes-02-768x361.png 768w" alt="" width="850" height="400" /></a></p>
+<h2>构建自定义WordPress主题</h2>
+<p><a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>似乎不太可能“打破”任何主题。相反，可能无法设置现有主题以充分利用一些奇特的新功能，例如封面图像。</p>
+<p>默认情况下，将包含所有Gutenberg块的一些“ 基线 ”样式。但是，您还可以为主题添加自定义样式，以便更好地控制块在网站<a href="/tag/%e5%89%8d%e7%ab%af/" title="前端">前端</a>的外观。</p>
+<p>想看看你的主题将如何处理每个Gutenberg块？Gutenberg插件的Block Unit Test可以提供帮助。</p>
+<p class="no-underline"><a href="/wp-content/uploads/2019/04/1555861141-4903-wp-5-workflow-changes-03.png"><img class="attachment-full size-full" src="/wp-content/uploads/2019/04/1555861141-4903-wp-5-workflow-changes-03.png" alt="古腾堡将如何改变你的WordPress工作流程？" sizes="(max-width: 850px) 100vw, 850px" srcset="/wp-content/uploads/2019/04/1555861141-4903-wp-5-workflow-changes-03.png 850w, /wp-content/uploads/2019/04/1555861141-4903-wp-5-workflow-changes-03-300x141.png 300w, /wp-content/uploads/2019/04/1555861141-4903-wp-5-workflow-changes-03-768x361.png 768w" alt="" width="850" height="400" /></a></p>
+<p>也可以通过主题文件中的某些代码包含（或保留）对特定功能（如全角图像）的支持<code>functions.<a href="/tag/php/" title="php">php</a></code>。这为您提供了一些关于您的主题与Gutenberg可以或不可以做什么的监督。</p>
+<p>最后，<a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>的主要卖点之一是更接近真正的所见即所得的体验。为了尽可能接近，在主题中添加编辑器样式可以在编辑器中更准确地反映内容在<a href="/tag/%e5%89%8d%e7%ab%af/" title="前端">前端</a>的外观。WordPress 内置了一个方便的.editor-styles-wrapper类来帮助您前进。</p>
+<h2>滚动变化</h2>
+<p>在某些方面，这可能听起来有点压倒性。但是，虽然改变并不容易，但这也是不可避免的。因此，我们所能做的就是充分利用它。</p>
+<p>所有这一切的一个积极方面是，即使WordPress 5.0在那里，如果我们这样选择，我们仍然可以选择Classic编辑器。这使我们能够最终决定这些变化是否适合我们自己的特定情况。</p>
+<p>经典编辑器将至少在2021年底之前得到支持，这意味着我们需要一些时间来调整才能进入<a href="/tag/%e5%8f%a4%e8%85%be%e5%a0%a1/" title="古腾堡">古腾堡</a>。因此，虽然我们的工作流程最终确实会发生变化，但我们仍然按照自己的步调进行。</p>
+<p>是的，这需要很多东西。但至少我们拥有必要的工具和知识来成功处理这些变化。</p>
+]]></content:encoded>
+										</item>
+	</channel>
+</rss>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+Object Caching 53/109 objects using memcached
+Page Caching using memcached 
+Database Caching 1/7 queries in 0.004 seconds using memcached
+
+Served from: zsblog.cn @ 2019-04-29 14:12:31 by W3 Total Cache
+-->
